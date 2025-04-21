@@ -15,7 +15,7 @@
                     <h5 class="card-title"><?= $product->name ?></h5>
                     <p class="card-text">Giá: <?= number_format($product->price, 0, ',', '.') ?>đ</p>
                     <a href="#" class="btn-view">View</a>
-                    <a href="#" class="btn-primary">ĐĂNG NHẬP ĐỂ THÊM</a>
+                    <a href="/shopvotcaulong/Public/index.php?controller=user&action=login" class="btn-primary">ĐĂNG NHẬP ĐỂ THÊM</a>
                 </div>
             </div>
         <?php endforeach; ?>
