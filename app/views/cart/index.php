@@ -18,9 +18,8 @@
                         <button class="quantity-btn increase" onclick="updateQuantity(<?= $item->product_id ?>, 1)">+</button>
                     </div>
                     <p class="cart-item-total">Tổng: <?= number_format($item->price * $item->quantity, 0, ',', '.') ?>đ</p>
-                    <a href="/shopvotcaulong/Public/index.php?controller=cart&action=remove&product_id=<?= $item->product_id ?>" 
-                       class="remove-btn" 
-                       onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?')">Xóa</a>
+                    <a href="index.php?controller=cart&action=remove&id=<?= $item->product_id ?>" 
+                    onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</a>
                 </div>
             </div>
         <?php endforeach; ?>
