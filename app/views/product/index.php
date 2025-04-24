@@ -16,8 +16,8 @@
                     <?php if (isset($_SESSION['user_id'])): ?>
                         <form action="/shopvotcaulong/Public/index.php?controller=cart&action=add" method="POST" style="display: inline;">
                             <input type="hidden" name="product_id" value="<?= $product->id ?>">
-                            <input type="number" name="quantity" value="1" min="1" style="width: 50px;">
-                            <button type="submit" class="btn-primary">THÊM VÀO GIỎ HÀNG</button>
+                            <a href="/shopvotcaulong/Public/index.php?controller=user&action=login" class="btn-primary">Đăng nhập để thêm</a>
+                        
                         </form>
                     <?php else: ?>
                         <a href="/shopvotcaulong/Public/index.php?controller=user&action=login" class="btn-primary">Đăng nhập để thêm</a>

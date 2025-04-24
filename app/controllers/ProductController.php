@@ -16,4 +16,11 @@ class ProductController extends Controller {
         $products = $this->productModel->getAll();
         $this->view('product/indexlogin', ['products' => $products]);
     }
+
+    public function deleteProduct($id) {
+        $query = "DELETE FROM products WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }

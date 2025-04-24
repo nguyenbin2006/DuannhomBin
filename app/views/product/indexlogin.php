@@ -14,10 +14,10 @@
                     <p class="card-text">Giá: <?= number_format($product->price, 0, ',', '.') ?>đ</p>
                     <div class="action-container">
                         <button href="#" class="btn-view">View</button>
-                        <input type="hidden" name="product_id" value="<?= $product->id ?>">
                         <input class="quantity-input"type="number" name="quantity" value="1" min="1">
                     </div>
                     <form action="/shopvotcaulong/Public/index.php?controller=cart&action=add" method="POST">
+                        <input type="hidden" name="product_id" value="<?= $product->id ?>">
                         <button type="submit" class="btn-primary">THÊM VÀO GIỎ HÀNG</button>
                     </form>
                 </div>

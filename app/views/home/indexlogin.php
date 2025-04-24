@@ -3,7 +3,7 @@
 <img class="content-img" src="/shopvotcaulong/Public/assets/img/img1.png" alt="">
 <div class="content">
     <ul>
-        <li><a href="">Sản phẩm mới</a></li>
+        <li><a href="">Sản phẩm</a></li>
     </ul>
 </div>
 <div class="product-container">
@@ -14,8 +14,14 @@
                 <div class="card-body">
                     <h5 class="card-title"><?= $product->name ?></h5>
                     <p class="card-text">Giá: <?= number_format($product->price, 0, ',', '.') ?>đ</p>
-                    <a href="#" class="btn-view">View</a>
-                    <a href="/shopvotcaulong/Public/index.php?controller=cart&action=index" class="btn-primary">THÊM VÀO GIỎ HÀNG</a>
+                     <div class="action-container">
+                        <button href="#" class="btn-view">View</button>
+                        <input class="quantity-input"type="number" name="quantity" value="1" min="1">
+                    </div>
+                    <form action="/shopvotcaulong/Public/index.php?controller=cart&action=add" method="POST">
+                        <input type="hidden" name="product_id" value="<?= $product->id ?>">
+                        <button type="submit" class="btn-primary">THÊM VÀO GIỎ HÀNG</button>
+                    </form>
                 </div>
             </div>
         <?php endforeach; ?>

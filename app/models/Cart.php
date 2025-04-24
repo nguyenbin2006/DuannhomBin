@@ -12,45 +12,52 @@ class Cart {
         $this->db = $db;
     }
 
-    // Thêm sản phẩm vào giỏ hàng
     public function addToCart($user_id, $product_id, $quantity = 1) {
         if ($this->db === null) {
             throw new Exception("Database connection is not initialized in Cart model.");
         }
-
-        // Kiểm tra xem sản phẩm đã có trong giỏ hàng của người dùng chưa
+    
+        // Debug dữ liệu đầu vào
+        error_log("Add to cart: user_id=$user_id, product_id=$product_id, quantity=$quantity");
+    
         $query = "SELECT * FROM " . $this->table_name . " WHERE user_id = :user_id AND product_id = :product_id";
         $this->db->query($query);
         $this->db->bind(':user_id', $user_id);
         $this->db->bind(':product_id', $product_id);
         $existingItem = $this->db->single();
-
+    
         if ($existingItem) {
-            // Nếu sản phẩm đã có, cập nhật số lượng
-            $query = "UPDATE " . $this->table_name . " SET quantity = quantity + :quantity WHERE user_id = :user_id AND product_id = :product_id";
+            $newQuantity = $existingItem->quantity + $quantity;
+            $query = "UPDATE " . $this->table_name . " SET quantity = :quantity WHERE user_id = :user_id AND product_id = :product_id";
             $this->db->query($query);
-            $this->db->bind(':quantity', $quantity);
+            $this->db->bind(':quantity', $newQuantity);
             $this->db->bind(':user_id', $user_id);
             $this->db->bind(':product_id', $product_id);
-            return $this->db->execute();
+            $result = $this->db->execute();
+            if (!$result) {
+                error_log("SQL Error in addToCart (UPDATE): " . print_r($this->db->errorInfo(), true));
+            }
+            return $result;
         } else {
-            // Nếu sản phẩm chưa có, thêm mới
             $query = "INSERT INTO " . $this->table_name . " (user_id, product_id, quantity) VALUES (:user_id, :product_id, :quantity)";
             $this->db->query($query);
             $this->db->bind(':user_id', $user_id);
             $this->db->bind(':product_id', $product_id);
             $this->db->bind(':quantity', $quantity);
-            return $this->db->execute();
+            $result = $this->db->execute();
+            if (!$result) {
+                error_log("SQL Error in addToCart (INSERT): " . print_r($this->db->errorInfo(), true));
+            }
+            return $result;
         }
     }
 
-    // Lấy giỏ hàng của người dùng
     public function getCart($user_id) {
         if ($this->db === null) {
             throw new Exception("Database connection is not initialized in Cart model.");
         }
-
-        $query = "SELECT c.*, p.name, p.price, p.image 
+    
+        $query = "SELECT c.*, p.name, p.price, p.image, p.stock 
                  FROM " . $this->table_name . " c 
                  JOIN products p ON c.product_id = p.id 
                  WHERE c.user_id = :user_id";
@@ -59,7 +66,6 @@ class Cart {
         return $this->db->resultSet();
     }
 
-    // Xóa sản phẩm khỏi giỏ hàng
     public function removeFromCart($user_id, $product_id) {
         if ($this->db === null) {
             throw new Exception("Database connection is not initialized in Cart model.");
@@ -70,5 +76,61 @@ class Cart {
         $this->db->bind(':user_id', $user_id);
         $this->db->bind(':product_id', $product_id);
         return $this->db->execute();
+    }
+
+    public function getCartItem($user_id, $product_id) {
+        if ($this->db === null) {
+            throw new Exception("Database connection is not initialized in Cart model.");
+        }
+
+        $query = "SELECT * FROM " . $this->table_name . " WHERE user_id = :user_id AND product_id = :product_id";
+        $this->db->query($query);
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':product_id', $product_id);
+        return $this->db->single();
+    }
+
+    public function updateQuantity($user_id, $product_id, $quantity) {
+        if ($this->db === null) {
+            throw new Exception("Database connection is not initialized in Cart model.");
+        }
+    
+        // Kiểm tra sản phẩm tồn tại và lấy thông tin tồn kho
+        $product = $this->getProductById($product_id);
+        if (!$product) {
+            error_log("Product not found: product_id=$product_id");
+            return false;
+        }
+    
+        // Kiểm tra số lượng tồn kho
+        if ($quantity > $product->stock) {
+            error_log("Quantity exceeds stock: requested=$quantity, stock=$product->stock");
+            return false; // Trả về false nếu số lượng vượt quá tồn kho
+        }
+    
+        // Cập nhật số lượng trong giỏ hàng
+        $query = "UPDATE " . $this->table_name . " SET quantity = :quantity WHERE user_id = :user_id AND product_id = :product_id";
+        $this->db->query($query);
+        $this->db->bind(':quantity', $quantity);
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':product_id', $product_id);
+        $result = $this->db->execute();
+    
+        if (!$result) {
+            error_log("SQL Error in updateQuantity: " . print_r($this->db->errorInfo(), true));
+        }
+    
+        return $result;
+    }
+
+    public function getProductById($product_id) {
+        if ($this->db === null) {
+            throw new Exception("Database connection is not initialized in Cart model.");
+        }
+
+        $query = "SELECT * FROM products WHERE id = :product_id";
+        $this->db->query($query);
+        $this->db->bind(':product_id', $product_id);
+        return $this->db->single();
     }
 }

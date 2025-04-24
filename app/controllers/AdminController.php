@@ -1,37 +1,76 @@
 <?php
-class AdminController {
-    private $db;
-    private $userModel;
+class AdminController extends Controller {
     private $productModel;
 
     public function __construct() {
-        $database = new Database();
-        $this->db = $database->getConnection();
-        $this->userModel = new User($this->db);
-        $this->productModel = new Product($this->db);
+        parent::__construct();
+        $this->productModel = $this->model('Product');
     }
 
-    public function login() {
+    public function index() {
+        $products = $this->productModel->getAll();
+        $this->view('admin/index', ['products' => $products]);
+    }
+
+    public function create() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->userModel->email = $_POST['email'];
-            $this->userModel->password = $_POST['password'];
-            $user = $this->userModel->login();
-            if ($user && $user['role'] == 'admin') {
-                session_start();
-                $_SESSION['admin_id'] = $user['id'];
-                header('Location: /admin/dashboard');
-            } else {
-                $error = "Sai email hoặc mật khẩu!";
-                require_once '../views/admin/login.php';
-            }
+            $name = $_POST['name'];
+            $price = $_POST['price'];
+            $stock = $_POST['stock'];
+            $image = $_POST['image'];
+            $description = $_POST['description'];
+            $category = $_POST['category'];
+
+            $this->productModel->createProduct($name, $price, $stock, $image, $description, $category);
+            header('Location: /shopvotcaulong/Public/index.php?controller=admin&action=index');
+            exit();
         } else {
-            require_once '../views/admin/login.php';
+            $this->view('admin/create');
         }
     }
 
-    public function manage_products() {
-        $products = $this->productModel->getAll();
-        require_once '../views/admin/manage_products.php';
+    public function edit() {
+        $id = $_GET['id'] ?? 0;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $name = $_POST['name'];
+            $price = $_POST['price'];
+            $stock = $_POST['stock'];
+            $image = $_POST['image'];
+            $description = $_POST['description'];
+            $category = $_POST['category'];
+
+            $this->productModel->updateProduct($id, $name, $price, $stock, $image, $description, $category);
+            header('Location: /shopvotcaulong/Public/index.php?controller=admin&action=index');
+            exit();
+        } else {
+            $product = $this->productModel->getProductById($id);
+            $this->view('admin/edit', ['product' => $product]);
+        }
+    }
+
+    public function delete($id) {
+        // Kiểm tra $id có hợp lệ không
+        if (!isset($id) || !is_numeric($id)) {
+            die("ID sản phẩm không hợp lệ!");
+        }
+
+        try {
+            // Viết câu lệnh SQL để xóa sản phẩm
+            $query = "DELETE FROM products WHERE id = :id";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);   
+            $result = $stmt->execute();
+
+            if ($result) {
+                // Xóa thành công, chuyển hướng về trang quản lý
+                header("Location: /shopvotcaulong/Public/index.php?controller=admin&message=delete_success");
+            } else {    
+                // Xóa thất bại
+                header("Location: /shopvotcaulong/Public/index.php?controller=admin&message=delete_failed");
+            }
+        } catch (Exception $e) {
+            // Xử lý lỗi nếu có
+            die("Lỗi khi xóa sản phẩm: " . $e->getMessage());
+        }
     }
 }
-?>

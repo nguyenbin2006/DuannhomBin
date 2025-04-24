@@ -1,4 +1,13 @@
-<?php include __DIR__ . '/../layouts/headerlogin.php'; ?>
+<?php 
+
+$config = require 'config.php';
+$base = $config['base'];
+$baseURL = $config['baseURL'];
+$assets = $config['assets'];
+
+include __DIR__ . '/../layouts/headerlogin.php';
+?>
+
 <div class="giohang">
 <li class="text-cart">Giỏ hàng của bạn</li>
 </div>
@@ -13,14 +22,14 @@
                     <h5 class="cart-item-name"><?= htmlspecialchars($item->name) ?></h5>
                     <p class="cart-item-price">Giá: <?= number_format($item->price, 0, ',', '.') ?>đ</p>
                     <div class="cart-item-quantity">
-                        <button class="quantity-btn decrease" onclick="updateQuantity(<?= $item->product_id ?>, -1)">-</button>
+                        <button class="quantity-btn increase" onclick="updateQuantity(<?= $item->product_id ?>, +1)">+</button>
                         <span class="quantity"><?= $item->quantity ?></span>
-                        <button class="quantity-btn increase" onclick="updateQuantity(<?= $item->product_id ?>, 1)">+</button>
+                        <button class="quantity-btn decrease" onclick="updateQuantity(<?= $item->product_id ?>, -1)">-</button>
+                        
                     </div>
                     <p class="cart-item-total">Tổng: <?= number_format($item->price * $item->quantity, 0, ',', '.') ?>đ</p>
-                    <a href="/shopvotcaulong/Public/index.php?controller=cart&action=remove&product_id=<?= $item->product_id ?>" 
-                       class="remove-btn" 
-                       onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?')">Xóa</a>
+                    <a href="index.php?controller=cart&action=remove&id=<?= $item->product_id ?>" 
+                    onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</a>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -35,7 +44,7 @@
                 echo number_format($total, 0, ',', '.') . 'đ';
             ?>
         </h3>
-        <a href="#" class="checkout-btn">Thanh toán</a>
+        <a href="<?= $baseURL ?>order/checkout" class="checkout-btn">Thanh toán</a>
     </div>
 <?php endif; ?>
 

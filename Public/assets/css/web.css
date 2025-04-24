@@ -1,0 +1,453 @@
+/* Các kiểu dáng hiện tại */
+.menu-chinh {
+    background-color: #666;
+}
+.content ul,
+.menu-chinh ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.content ul li,
+.menu-chinh ul li {
+    position: relative;
+}
+
+.menu-chinh ul li a {
+    display: block;
+    padding: 15px 60px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Thêm hiệu ứng mượt mà */
+}
+
+.menu-chinh ul li a:hover {
+    background-color: #444;
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+.header-top .logo img {
+    height: 76px;
+    max-width: 100%;
+}
+
+.header-info {
+    display: flex;
+    gap: 20px;
+}
+
+.header-info span {
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Khoảng cách giữa icon và chữ */
+}
+
+.header-info span:hover {
+    color: #f00;
+    cursor: pointer;
+    transition: all 0.50s ease;
+}
+
+.btn-login-group {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-login-group a {
+    text-decoration: none;
+}
+
+.btn-dangky,
+.btn-dangnhap {
+    padding: 5px 10px;
+    background-color: white;
+    color: black;
+    border: 1px solid #000;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+.btn-dangky:hover,
+.btn-dangnhap:hover {
+    background-color: #f00;
+    color: #fff;
+}
+
+.search-bar :hover {
+    cursor: pointer;
+    border: 0;
+}
+
+.search-bar input {
+    outline: none;
+    border-radius: 5px;
+    padding: 8px;
+    width: 200px;
+}
+
+.search-bar button {
+    border-radius: 5px;
+    outline: none;
+    padding: 8px;
+    background-color: #fff;
+    border: none;
+}
+
+.search-bar button:hover {
+    background-color: #444;
+    color: orange;
+}
+
+.content-img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Các phần còn lại của web.css giữ nguyên */
+.content ul li a {
+    display: block;
+    padding: 15px 60px;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 36px;
+    background-color: rgb(231, 170, 57);
+    margin-top: 40px;
+    border-radius: 10px;
+}
+
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    justify-content: center;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.card {
+    justify-content: center;
+    margin-left: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 100%;
+    width: 230px;
+    height: auto;
+}
+
+.btn-primary {
+    display: block;
+    background-color: #000 !important;
+    border: none !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    color: #fff !important;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.btn-primary:hover {
+    background-color: orange !important;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.card-title {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    min-height: 50px;
+    text-align: center;
+}
+
+.card-text {
+    font-size: 20px;
+    color: #f00;
+    font-weight: 500;
+}
+
+.btn-view {
+    padding: 10px 35px;
+    background-color: #f00;
+    text-decoration: none;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+.btn-view:hover {
+    background-color: orangered;
+    color: #000;
+}
+
+.footer {
+    background-color: #000;
+    color: #fff;
+}
+
+.footer-container {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.footer-item {
+    width: 50%;
+}
+
+.thank-info {
+    width: 400px;
+    margin-left: 90px;
+}
+
+.contact-info {
+    margin-left: 90px;
+}
+
+.contact-info i {
+    margin-right: 10px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.contact {
+    font-size: 15px;
+}
+
+.icon {
+    width: 10px;
+    height: 10px;
+    margin-right: 10px;
+}
+
+.ban-quyen {
+    background-color: rgb(60, 125, 238);
+    text-align: center;
+    color: #fff;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Cập nhật media queries để làm giao diện đẹp hơn trên màn hình nhỏ */
+
+/* Màn hình nhỏ hơn 768px (tablet) */
+@media (max-width: 768px) {
+    .header-top {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px; /* Tăng padding để thoáng hơn */
+        gap: 15px; /* Khoảng cách giữa các phần tử */
+    }
+
+    .header-top .logo img {
+        height: 60px;
+    }
+
+    .header-info {
+        flex-direction: row; /* Giữ dạng hàng để tiết kiệm không gian */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+        margin: 0;
+    }
+
+    .header-info span {
+        margin-left: 0;
+        font-size: 16px; /* Tăng kích thước chữ để dễ đọc */
+        padding: 5px;
+    }
+
+    .search-bar {
+        width: 100%;
+        margin: 10px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .search-bar input {
+        width: 70%; /* Giảm chiều rộng để cân đối */
+        padding: 8px;
+        font-size: 16px;
+        border-radius: 5px 0 0 5px;
+    }
+
+    .search-bar button {
+        padding: 8px 15px;
+        border-radius: 0 5px 5px 0;
+    }
+
+    .btn-login-group {
+        flex-direction: row; /* Giữ dạng hàng */
+        gap: 15px;
+    }
+
+    .btn-dangky,
+    .btn-dangnhap {
+        padding: 6px 15px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+
+    .menu-chinh ul {
+        flex-direction: column;
+        text-align: center;
+        gap: 5px;
+    }
+
+    .menu-chinh ul li a {
+        padding: 12px 30px;
+        font-size: 16px;
+        border-bottom: 1px solid #555; /* Thêm viền dưới để phân cách */
+    }
+
+    .menu-chinh ul li:last-child a {
+        border-bottom: none; /* Bỏ viền dưới cho mục cuối */
+    }
+
+    .content-img {
+        height: 400px;
+        object-fit: cover;
+        border-radius: 10px; /* Bo góc hình ảnh */
+        margin: 10px 0;
+    }
+
+    .content ul li a {
+        padding: 10px 30px;
+        font-size: 24px;
+        margin-top: 20px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-item {
+        width: 100%;
+    }
+
+    .thank-info,
+    .contact-info {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 20px;
+    }
+
+    .contact-info i {
+        font-size: 18px;
+    }
+
+    .contact {
+        font-size: 16px;
+    }
+
+    .ban-quyen {
+        font-size: 16px;
+        height: 30px;
+    }
+}
+
+/* Màn hình nhỏ hơn 576px (mobile) */
+@media (max-width: 576px) {
+    .header-top {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .header-top .logo img {
+        height: 50px;
+    }
+
+    .header-info {
+        flex-direction: column; /* Chuyển thành cột trên mobile */
+        gap: 10px;
+    }
+
+    .header-info span {
+        font-size: 14px;
+        padding: 5px;
+    }
+
+    .search-bar input {
+        width: 80%;
+        padding: 6px;
+        font-size: 14px;
+    }
+
+    .search-bar button {
+        padding: 6px 10px;
+    }
+
+    .btn-dangky,
+    .btn-dangnhap {
+        padding: 5px 12px;
+        font-size: 14px;
+        border-radius: 6px;
+    }
+
+    .menu-chinh ul li a {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+
+    .content-img {
+        height: 300px;
+        border-radius: 8px;
+    }
+
+    .content ul li a {
+        padding: 8px 20px;
+        font-size: 18px;
+        margin-top: 15px;
+    }
+
+    .contact-info i {
+        font-size: 16px;
+    }
+
+    .contact {
+        font-size: 14px;
+    }
+
+    .ban-quyen {
+        font-size: 14px;
+        height: 25px;
+    }
+}

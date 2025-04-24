@@ -5,8 +5,8 @@
         <p style="color:red;"><?php echo $error; ?></p>
     <?php endif; ?>
     <form action="/shopvotcaulong/Public/index.php?controller=user&action=login" method="POST">
-        <label for="username">Email or Phone</label>
-        <input type="text" name="username" placeholder="Email or Phone" id="username" required>
+        <label for="username">User Name</label>
+        <input type="text" name="username" placeholder="User Name" id="username" required>
 
         <label for="password">Password</label>
         <input type="password" name="password" placeholder="Password" id="password" required>

@@ -16,4 +16,12 @@ class HomeController extends Controller {
         $this->view('home/index', $data);
     }
 
+    public function indexlogin() {
+        $productModel = $this->model('Product');
+        $products = $productModel->getAll();
+        $this->view('home/indexlogin', ['products' => $products]);
+        $data = [];
+        $this->view('home/indexlogin', $data);
+    }
+
 }
