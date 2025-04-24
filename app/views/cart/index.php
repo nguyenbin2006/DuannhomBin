@@ -1,10 +1,5 @@
 <?php 
 
-$config = require 'config.php';
-$base = $config['base'];
-$baseURL = $config['baseURL'];
-$assets = $config['assets'];
-
 include __DIR__ . '/../layouts/headerlogin.php';
 ?>
 

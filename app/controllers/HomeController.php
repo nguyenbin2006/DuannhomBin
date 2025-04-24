@@ -23,5 +23,4 @@ class HomeController extends Controller {
         $data = [];
         $this->view('home/indexlogin', $data);
     }
-
 }

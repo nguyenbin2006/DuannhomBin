@@ -1,5 +1,5 @@
 <?php
-class ProductModel {
+class Product {
     private $db;
     private $table_name = "products";
 

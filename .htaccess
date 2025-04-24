@@ -1,4 +1,12 @@
 RewriteEngine On
+RewriteEngine On
+RewriteBase /DuannhomBin/
+
+
+# ✅ Cho phép truy cập trực tiếp các tài nguyên tĩnh (hình ảnh, JS, CSS, FONT)
+RewriteCond %{REQUEST_URI} \.(jpg|jpeg|png|gif|webp|svg|css|js|woff|woff2|ttf|eot|otf)$ [NC]
+RewriteRule ^ - [L]
+
 RewriteRule ^ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
