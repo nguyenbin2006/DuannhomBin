@@ -9,7 +9,7 @@ class CartController extends Controller {
 
     public function index() {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /shopvotcaulong/Public/index.php?controller=user&action=login');
+            header('Location: /DuannhomBin/Public/index.php?controller=user&action=login');
             exit();
         }
 
@@ -19,7 +19,7 @@ class CartController extends Controller {
 
     public function add() {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /shopvotcaulong/Public/index.php?controller=user&action=login');
+            header('Location: /DuannhomBin/Public/index.php?controller=user&action=login');
             exit();
         }
 
@@ -28,7 +28,7 @@ class CartController extends Controller {
             $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
 
             if ($this->cartModel->addToCart($_SESSION['user_id'], $product_id, $quantity)) {
-                header('Location: /shopvotcaulong/Public/index.php?controller=cart&action=index');
+                header('Location: /DuannhomBin/Public/index.php?controller=cart&action=index');
                 exit();
             } else {
                 echo "Lỗi khi thêm sản phẩm vào giỏ hàng.";
@@ -38,12 +38,12 @@ class CartController extends Controller {
 
     public function remove($product_id) {
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /shopvotcaulong/Public/index.php?controller=user&action=login');
+            header('Location: /DuannhomBin/Public/index.php?controller=user&action=login');
             exit();
         }
 
         if ($this->cartModel->removeFromCart($_SESSION['user_id'], $product_id)) {
-            header('Location: /shopvotcaulong/Public/index.php?controller=cart&action=index');
+            header('Location: /DuannhomBin/Public/index.php?controller=cart&action=index');
             exit();
         } else {
             echo "Lỗi khi xóa sản phẩm khỏi giỏ hàng.";

@@ -3,7 +3,7 @@ class Database {
     private $host = 'localhost';
     private $user = 'root';
     private $pass = '';
-    private $dbname = 'shopvotcaulong';
+    private $dbname = 'DuannhomBin';
 
     protected $dbh;
     protected $stmt;
@@ -59,7 +59,7 @@ class Database {
 
     public static function connect() {
         $host = 'localhost';
-        $dbname = 'shopvotcaulong';
+        $dbname = 'DuannhomBin';
         $user = 'root';
         $pass = '';
         try {

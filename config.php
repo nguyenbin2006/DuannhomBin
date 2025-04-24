@@ -1,11 +1,11 @@
 <?php
 return array(
-    'assets' => '/shopvotcaulong/assets/',
-    'base' => '/shopvotcaulong/assets/',
-    'baseURL' => 'http://localhost/shopvotcaulong',
+    'assets' => '/DuannhomBin/assets/',
+    'base' => '/DuannhomBin/assets/',
+    'baseURL' => 'http://localhost/DuannhomBin',
     'db' => array(
         'host'     => 'localhost',
-        'name'     => 'shopvotcaulong',
+        'name'     => 'DuannhomBin',
         'username' => 'root',
         'password' => ''
     )

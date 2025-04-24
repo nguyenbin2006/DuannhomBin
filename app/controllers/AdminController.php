@@ -22,7 +22,7 @@ class AdminController extends Controller {
             $category = $_POST['category'];
 
             $this->productModel->createProduct($name, $price, $stock, $image, $description, $category);
-            header('Location: /shopvotcaulong/Public/index.php?controller=admin&action=index');
+            header('Location: /DuannhomBin/Public/index.php?controller=admin&action=index');
             exit();
         } else {
             $this->view('admin/create');
@@ -40,7 +40,7 @@ class AdminController extends Controller {
             $category = $_POST['category'];
 
             $this->productModel->updateProduct($id, $name, $price, $stock, $image, $description, $category);
-            header('Location: /shopvotcaulong/Public/index.php?controller=admin&action=index');
+            header('Location: /DuannhomBin/Public/index.php?controller=admin&action=index');
             exit();
         } else {
             $product = $this->productModel->getProductById($id);
@@ -63,10 +63,10 @@ class AdminController extends Controller {
 
             if ($result) {
                 // Xóa thành công, chuyển hướng về trang quản lý
-                header("Location: /shopvotcaulong/Public/index.php?controller=admin&message=delete_success");
+                header("Location: /DuannhomBin/Public/index.php?controller=admin&message=delete_success");
             } else {    
                 // Xóa thất bại
-                header("Location: /shopvotcaulong/Public/index.php?controller=admin&message=delete_failed");
+                header("Location: /DuannhomBin/Public/index.php?controller=admin&message=delete_failed");
             }
         } catch (Exception $e) {
             // Xử lý lỗi nếu có

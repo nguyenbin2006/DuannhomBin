@@ -3,7 +3,7 @@ class DBConnection {
     private $host = 'localhost';
     private $user = 'root';
     private $pass = '';
-    private $dbname = 'shopvotcaulong';
+    private $dbname = 'DuannhomBin';
 
     protected $dbh;
     protected $stmt;

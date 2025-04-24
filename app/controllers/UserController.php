@@ -17,7 +17,7 @@ class UserController extends Controller {
             if ($user && password_verify($password, $user->password)) {
                 $_SESSION['user_id'] = $user->id;
                 // Chuyển hướng đến trang dashboard sau khi đăng nhập
-                header('Location: /shopvotcaulong/Public/index.php?controller=user&action=dashboard');
+                header('Location: /DuannhomBin/Public/index.php?controller=user&action=dashboard');
                 exit();
             } else {
                 $this->view('user/login', ['error' => 'Sai email/số điện thoại hoặc mật khẩu!']);
@@ -64,7 +64,7 @@ class UserController extends Controller {
     public function dashboard() {
         // Kiểm tra xem người dùng đã đăng nhập chưa
         if (!isset($_SESSION['user_id'])) {
-            header('Location: /shopvotcaulong/Public/index.php?controller=user&action=login');
+            header('Location: /DuannhomBin/Public/index.php?controller=user&action=login');
             exit();
         }
     
@@ -73,7 +73,7 @@ class UserController extends Controller {
         if (!$user) {
             session_unset();
             session_destroy();
-            header('Location: /shopvotcaulong/Public/index.php?controller=user&action=login');
+            header('Location: /DuannhomBin/Public/index.php?controller=user&action=login');
             exit();
         }
     
@@ -92,7 +92,7 @@ class UserController extends Controller {
     public function logout() {
         session_unset();
         session_destroy();
-        header('Location: /shopvotcaulong/Public/index.php?controller=home&action=index');
+        header('Location: /DuannhomBin/Public/index.php?controller=home&action=index');
         exit();
     }
 }

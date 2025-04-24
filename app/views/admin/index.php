@@ -1,5 +1,5 @@
 <h2>Quản lý sản phẩm</h2>
-<a href="/shopvotcaulong/Public/index.php?controller=admin&action=create">+ Thêm sản phẩm mới</a>
+<a href="/DuannhomBin/Public/index.php?controller=admin&action=create">+ Thêm sản phẩm mới</a>
 
 <?php
 if (isset($_GET['message'])) {
@@ -25,11 +25,11 @@ if (isset($_GET['message'])) {
         <td><?= $product->id ?></td>
         <td><?= $product->name ?></td>
         <td><?= number_format($product->price, 0, ',', '.') ?>đ</td>
-        <td><img src="/shopvotcaulong/Public/assets/img/<?= $product->image ?>" width="80"></td>
+        <td><img src="/DuannhomBin/Public/assets/img/<?= $product->image ?>" width="80"></td>
         <td><?= $product->stock ?></td>
         <td>
-            <a href="/shopvotcaulong/Public/index.php?controller=admin&action=edit&id=<?= $product->id ?>">Sửa</a> |
-            <a href="/shopvotcaulong/Public/index.php?controller=admin&action=delete&id=<?= $product->id ?>" onclick="return confirm('Xóa sản phẩm này?')">Xóa</a>
+            <a href="/DuannhomBin/Public/index.php?controller=admin&action=edit&id=<?= $product->id ?>">Sửa</a> |
+            <a href="/DuannhomBin/Public/index.php?controller=admin&action=delete&id=<?= $product->id ?>" onclick="return confirm('Xóa sản phẩm này?')">Xóa</a>
         </td>
     </tr>
     <?php endforeach; ?>

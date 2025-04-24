@@ -1,6 +1,6 @@
 <?php include __DIR__ .'/../layouts/header.php'; ?>
 
-<img class="content-img" src="/shopvotcaulong/Public/assets/img/img1.png" alt="">
+<img class="content-img" src="/DuannhomBin/Public/assets/img/img1.png" alt="">
 <div class="content">
     <ul>
         <li><a href="">Sản phẩm</a></li>
@@ -10,12 +10,12 @@
     <?php if (isset($products) && !empty($products)): ?>
         <?php foreach ($products as $product): ?>
             <div class="card">
-                <img src="/shopvotcaulong/Public/assets/img/<?= $product->image ?>" class="card-img-top" alt="Sản phẩm">
+                <img src="/DuannhomBin/Public/assets/img/<?= $product->image ?>" class="card-img-top" alt="Sản phẩm">
                 <div class="card-body">
                     <h5 class="card-title"><?= $product->name ?></h5>
                     <p class="card-text">Giá: <?= number_format($product->price, 0, ',', '.') ?>đ</p>
                     <a href="#" class="btn-view">View</a>
-                    <a href="/shopvotcaulong/Public/index.php?controller=user&action=login" class="btn-primary">ĐĂNG NHẬP ĐỂ THÊM</a>
+                    <a href="/DuannhomBin/Public/index.php?controller=user&action=login" class="btn-primary">ĐĂNG NHẬP ĐỂ THÊM</a>
                 </div>
             </div>
         <?php endforeach; ?>

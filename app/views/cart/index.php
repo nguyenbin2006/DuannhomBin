@@ -17,7 +17,7 @@ include __DIR__ . '/../layouts/headerlogin.php';
     <div class="cart-container">
         <?php foreach ($cartItems as $item): ?>
             <div class="cart-item">
-                <img src="/shopvotcaulong/Public/assets/img/<?= htmlspecialchars($item->image) ?>" alt="<?= htmlspecialchars($item->name) ?>" class="cart-item-img">
+                <img src="/DuannhomBin/Public/assets/img/<?= htmlspecialchars($item->image) ?>" alt="<?= htmlspecialchars($item->name) ?>" class="cart-item-img">
                 <div class="cart-item-details">
                     <h5 class="cart-item-name"><?= htmlspecialchars($item->name) ?></h5>
                     <p class="cart-item-price">Giá: <?= number_format($item->price, 0, ',', '.') ?>đ</p>
@@ -62,7 +62,7 @@ function updateQuantity(productId, change) {
     }
 
     // Gửi yêu cầu AJAX để cập nhật số lượng trong cơ sở dữ liệu
-    fetch('/shopvotcaulong/Public/index.php?controller=cart&action=update', {
+    fetch('/DuannhomBin/Public/index.php?controller=cart&action=update', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
