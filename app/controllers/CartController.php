@@ -1,4 +1,9 @@
 <?php
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 class CartController extends Controller {
     private $cartModel;
 
@@ -12,11 +17,22 @@ class CartController extends Controller {
             header('Location: /DuannhomBin/Public/index.php?controller=user&action=login');
             exit();
         }
-
+    
         $cartItems = $this->cartModel->getCart($_SESSION['user_id']);
-        $this->view('cart/index', ['cartItems' => $cartItems]);
+    
+        $config = [
+            'base_url' => 'http://localhost/DuannhomBin/Public/',
+            'base' => 'http://localhost/DuannhomBin/',
+            'baseURL' => 'http://localhost/DuannhomBin/',
+            'assets' => 'http://localhost/DuannhomBin/Public/assets/'
+        ];
+    
+        $this->view('cart/index', [
+            'cartItems' => $cartItems,
+            'config' => $config
+        ]);
     }
-
+    
     public function add() {
         if (!isset($_SESSION['user_id'])) {
             header('Location: /DuannhomBin/Public/index.php?controller=user&action=login');

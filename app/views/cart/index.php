@@ -1,5 +1,7 @@
 <?php 
-
+$base = $config['base'];
+$baseURL = $config['baseURL'];
+$assets = $config['assets'];
 include __DIR__ . '/../layouts/headerlogin.php';
 ?>
 
@@ -12,7 +14,7 @@ include __DIR__ . '/../layouts/headerlogin.php';
     <div class="cart-container">
         <?php foreach ($cartItems as $item): ?>
             <div class="cart-item">
-                <img src="/DuannhomBin/Public/assets/img/<?= htmlspecialchars($item->image) ?>" alt="<?= htmlspecialchars($item->name) ?>" class="cart-item-img">
+                <img src="<?=$assets?>img/<?= htmlspecialchars($item->image) ?>" alt="<?= htmlspecialchars($item->name) ?>" class="cart-item-img">
                 <div class="cart-item-details">
                     <h5 class="cart-item-name"><?= htmlspecialchars($item->name) ?></h5>
                     <p class="cart-item-price">Giá: <?= number_format($item->price, 0, ',', '.') ?>đ</p>
@@ -23,7 +25,7 @@ include __DIR__ . '/../layouts/headerlogin.php';
                         
                     </div>
                     <p class="cart-item-total">Tổng: <?= number_format($item->price * $item->quantity, 0, ',', '.') ?>đ</p>
-                    <a href="index.php?controller=cart&action=remove&id=<?= $item->product_id ?>" 
+                    <a href="<?=$base_url?>index.php?controller=cart&action=remove&id=<?= $item->product_id ?>"
                     onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</a>
                 </div>
             </div>
@@ -39,7 +41,7 @@ include __DIR__ . '/../layouts/headerlogin.php';
                 echo number_format($total, 0, ',', '.') . 'đ';
             ?>
         </h3>
-        <a href="<?= $baseURL ?>order/checkout" class="checkout-btn">Thanh toán</a>
+        <a href="<?=$baseURL?>order/checkout" class="checkout-btn">Thanh toán</a>
     </div>
 <?php endif; ?>
 

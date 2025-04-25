@@ -1,7 +1,7 @@
 <?php
 return array(
     'assets' => '/DuannhomBin/assets/',
-    'base' => '/DuannhomBin/assets/',
+    'base' => '/DuannhomBin',
     'baseURL' => 'http://localhost/DuannhomBin',
     'db' => array(
         'host'     => 'localhost',
