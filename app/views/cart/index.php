@@ -5,6 +5,7 @@ $assets = $config['assets'];
 include __DIR__ . '/../layouts/headerlogin.php';
 ?>
 
+
 <div class="giohang">
 <li class="text-cart">Giỏ hàng của bạn</li>
 </div>
@@ -13,7 +14,7 @@ include __DIR__ . '/../layouts/headerlogin.php';
 <?php else: ?>
     <div class="cart-container">
         <?php foreach ($cartItems as $item): ?>
-            <div class="cart-item">
+            <div class="cart-item" data-id="<?= $item->product_id ?>">
                 <img src="<?=$assets?>img/<?= htmlspecialchars($item->image) ?>" alt="<?= htmlspecialchars($item->name) ?>" class="cart-item-img">
                 <div class="cart-item-details">
                     <h5 class="cart-item-name"><?= htmlspecialchars($item->name) ?></h5>
@@ -50,15 +51,14 @@ include __DIR__ . '/../layouts/headerlogin.php';
 <script>
 // Hàm cập nhật số lượng (tăng/giảm)
 function updateQuantity(productId, change) {
-    let quantityElement = document.querySelector(`.cart-item-details .quantity`);
+    // Tìm đúng phần tử sản phẩm tương ứng
+    const cartItem = document.querySelector(`.cart-item[data-id="${productId}"]`);
+    const quantityElement = cartItem.querySelector('.quantity');
     let currentQuantity = parseInt(quantityElement.textContent);
     let newQuantity = currentQuantity + change;
 
-    if (newQuantity < 1) {
-        newQuantity = 1; // Không cho phép số lượng nhỏ hơn 1
-    }
+    if (newQuantity < 1) newQuantity = 1;
 
-    // Gửi yêu cầu AJAX để cập nhật số lượng trong cơ sở dữ liệu
     fetch('/DuannhomBin/Public/index.php?controller=cart&action=update', {
         method: 'POST',
         headers: {
@@ -70,13 +70,14 @@ function updateQuantity(productId, change) {
     .then(data => {
         if (data.success) {
             quantityElement.textContent = newQuantity;
-            // Cập nhật tổng cho sản phẩm
-            let price = parseInt(document.querySelector(`.cart-item-details .cart-item-price`).textContent.replace(/[^0-9]/g, ''));
-            document.querySelector(`.cart-item-details .cart-item-total`).textContent = `Tổng: ${newQuantity * price}đ`;
-            // Cập nhật tổng cộng
+
+            const price = data.price;
+            const itemTotalElement = cartItem.querySelector('.cart-item-total');
+            itemTotalElement.textContent = `Tổng: ${(price * newQuantity).toLocaleString('vi-VN')}đ`;
+
             document.querySelector('.cart-summary h3').textContent = `Tổng cộng: ${data.total}đ`;
         } else {
-            alert('Lỗi khi cập nhật số lượng!');
+            alert(data.message || 'Lỗi khi cập nhật số lượng!');
         }
     })
     .catch(error => {
@@ -84,4 +85,5 @@ function updateQuantity(productId, change) {
         alert('Lỗi khi cập nhật số lượng!');
     });
 }
+
 </script>
