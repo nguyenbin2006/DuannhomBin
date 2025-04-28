@@ -33,7 +33,7 @@ class OrderModel {
     }
 
     public function addOrderItem($orderId, $productId, $quantity, $price) {
-        $sql = "INSERT Microphone (order_id, product_id, quantity, price) VALUES (:order_id, :product_id, :quantity, :price)";
+        $sql = "INSERT order_items (order_id, product_id, quantity, price) VALUES (:order_id, :product_id, :quantity, :price)";
         $this->db->query($sql);
         $this->db->bind(':order_id', $orderId);
         $this->db->bind(':product_id', $productId);

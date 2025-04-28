@@ -55,4 +55,14 @@ try {
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
 }
+
+
+if ($action == 'checkout' && $_SERVER['REQUEST_METHOD'] == 'POST') {
+    $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 1;
+    $address = $_POST['address'] ?? '';
+    $orderModel->createOrder($user_id, $_SESSION['cart'], $address);
+    unset($_SESSION['cart']);
+    header("Location: index.php?success=1");
+    exit();
+}
 ?>

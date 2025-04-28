@@ -2,18 +2,20 @@
 <table>
     <tr>
         <th>ID</th>
-        <th>Người dùng</th>
+        <th>Email nhận hàng</th>
+        <th>SĐT</th>
+        <th>Địa chỉ giao hàng</th>
         <th>Tổng tiền</th>
         <th>Ngày đặt</th>
         <th>Trạng thái</th>
         <th>Hành động</th>
     </tr>
-    <?php foreach ($orders as $order) {
-        $user = $orderModel->getUserById($order->user_id);
-        ?>
+    <?php foreach ($orders as $order) { ?>
         <tr>
             <td><?= $order->id ?></td>
-            <td><?= $user->username ?></td>
+            <td><?= $order->email ?></td>
+            <td><?= $order->phone ?></td>
+            <td><?= $order->address ?: 'Chưa cập nhật' ?></td>
             <td><?= number_format($order->total_amount, 0, ',', '.') ?>đ</td>
             <td><?= $order->order_date ?></td>
             <td>

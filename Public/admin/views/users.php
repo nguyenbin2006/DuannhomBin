@@ -2,8 +2,8 @@
 <table>
     <tr>
         <th>ID</th>
-        <th>Tên người dùng</th>
         <th>Email</th>
+        <th>Tên người dùng</th>
         <th>Hành động</th>
     </tr>
     <?php foreach ($users as $user) { ?>

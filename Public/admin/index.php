@@ -29,10 +29,15 @@ if ($section == 'products') {
         $name = $_POST['name'];
         $price = $_POST['price'];
         $stock = $_POST['stock'];
-        $image = $_POST['image'];
-        $productModel->addProduct($name, $price, $stock, $image);
-        header("Location: index.php?section=products");
-        exit();
+        $image = isset($_FILES['image']) ? $_FILES['image'] : null; // Lấy dữ liệu từ $_FILES
+
+        try {
+            $productModel->addProduct($name, $price, $stock, $image);
+            header("Location: index.php?section=products");
+            exit();
+        } catch (Exception $e) {
+            $error_message = $e->getMessage();
+        }
     }
 
     if ($action == 'delete_product') {
@@ -51,10 +56,15 @@ if ($section == 'products') {
         $name = $_POST['name'];
         $price = $_POST['price'];
         $stock = $_POST['stock'];
-        $image = $_POST['image'];
-        $productModel->updateProduct($id, $name, $price, $stock, $image);
-        header("Location: index.php?section=products");
-        exit();
+        $image = isset($_FILES['image']) ? $_FILES['image'] : null; // Lấy dữ liệu từ $_FILES
+
+        try {
+            $productModel->updateProduct($id, $name, $price, $stock, $image);
+            header("Location: index.php?section=products");
+            exit();
+        } catch (Exception $e) {
+            $error_message = $e->getMessage();
+        }
     }
 
     $products = $productModel->getAllProducts();
@@ -72,6 +82,7 @@ if ($section == 'users') {
     $users = $userModel->getAllUsers();
 }
 
+// Quản lý đơn hàng
 // Quản lý đơn hàng
 if ($section == 'orders') {
     if ($action == 'delete_order') {

@@ -70,7 +70,7 @@ include __DIR__ . '/../layouts/headerlogin.php';
                 <input type="text" class="form-control" id="phone" name="phone" required>
             </div>
             <div class="form-group">
-                <label for="email">Email:</label>
+                <label for="email">Email</label>
                 <input type="email" class="form-control" id="email" name="email" required>
             </div>
             <div class="form-group">

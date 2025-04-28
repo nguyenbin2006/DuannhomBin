@@ -1,6 +1,6 @@
 <h2>Quản lý sản phẩm</h2>
 <h3>Thêm sản phẩm mới</h3>
-<form method="POST" action="index.php?section=products&action=add_product">
+<form method="POST" action="index.php?section=products&action=add_product" enctype="multipart/form-data">
     <div class="form-group">
         <label>Tên sản phẩm</label>
         <input type="text" name="name" required>
@@ -14,8 +14,8 @@
         <input type="number" name="stock" required>
     </div>
     <div class="form-group">
-        <label>Ảnh (URL)</label>
-        <input type="text" name="image" required>
+        <label>Ảnh sản phẩm</label>
+        <input type="file" name="image" accept="image/*" required>
     </div>
     <div class="form-group">
         <button type="submit">Thêm sản phẩm</button>
@@ -32,13 +32,17 @@
         <th>Ảnh</th>
         <th>Hành động</th>
     </tr>
-    <?php foreach ($products as $product) { ?>
+    <?php
+    $base_url = 'http://localhost/DuannhomBin/Public/assets/img/';
+    foreach ($products as $product) {
+        $image_url = empty($product->image) ? $base_url . 'placeholder.jpg' : $base_url . $product->image;
+    ?>
         <tr>
             <td><?= $product->id ?></td>
             <td><?= $product->name ?></td>
             <td><?= number_format($product->price, 0, ',', '.') ?>đ</td>
             <td><?= $product->stock ?></td>
-            <td><img src="<?= $product->image ?>" width="50"></td>
+            <td><img src="<?= $image_url ?>" width="50" onerror="this.src='http://localhost/DuannhomBin/Public/assets/img/placeholder.jpg';"></td>
             <td>
                 <a href="index.php?section=products&action=edit&id=<?= $product->id ?>" class="btn btn-primary">Sửa</a>
                 <a href="index.php?section=products&action=delete_product&id=<?= $product->id ?>" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa?')">Xóa</a>
@@ -50,9 +54,10 @@
 <?php if ($action == 'edit' && isset($_GET['id'])) {
     $id = $_GET['id'];
     $product = $productModel->getProductById($id);
+    $image_url = empty($product->image) ? $base_url . 'placeholder.jpg' : $base_url . $product->image;
     ?>
     <h3>Sửa sản phẩm</h3>
-    <form method="POST" action="index.php?section=products&action=edit_product">
+    <form method="POST" action="index.php?section=products&action=edit_product" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?= $product->id ?>">
         <div class="form-group">
             <label>Tên sản phẩm</label>
@@ -67,8 +72,12 @@
             <input type="number" name="stock" value="<?= $product->stock ?>" required>
         </div>
         <div class="form-group">
-            <label>Ảnh (URL)</label>
-            <input type="text" name="image" value="<?= $product->image ?>" required>
+            <label>Ảnh hiện tại</label>
+            <img src="<?= $image_url ?>" width="50">
+        </div>
+        <div class="form-group">
+            <label>Thay ảnh mới (bỏ trống nếu không thay đổi)</label>
+            <input type="file" name="image" accept="image/*">
         </div>
         <div class="form-group">
             <button type="submit">Cập nhật</button>
