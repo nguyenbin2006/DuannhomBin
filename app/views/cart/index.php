@@ -5,10 +5,30 @@ $assets = $config['assets'];
 include __DIR__ . '/../layouts/headerlogin.php';
 ?>
 
-
 <div class="giohang">
-<li class="text-cart">Giỏ hàng của bạn</li>
+    <li class="text-cart">Giỏ hàng của bạn</li>
 </div>
+
+<?php if (isset($_GET['success']) && $_GET['success'] === 'order_placed'): ?>
+    <div class="alert alert-success">
+        Đặt hàng thành công! Kiểm tra trạng thái đơn hàng của bạn bên dưới.
+    </div>
+<?php endif; ?>
+
+<?php if (isset($error)): ?>
+    <div class="alert alert-danger">
+        <?php
+        if ($error == 'empty_cart') echo 'Giỏ hàng của bạn đang trống!';
+        elseif ($error == 'invalid_product') echo 'Sản phẩm không hợp lệ!';
+        elseif ($error == 'order_failed') echo 'Không thể tạo đơn hàng. Vui lòng thử lại!';
+        elseif ($error == 'missing_info') echo 'Vui lòng nhập đầy đủ thông tin giao hàng!';
+        elseif ($error == 'invalid_email') echo 'Email không hợp lệ!';
+        elseif ($error == 'invalid_phone') echo 'Số điện thoại không hợp lệ!';
+        elseif ($error == 'invalid_address') echo 'Địa chỉ không hợp lệ!';
+        ?>
+    </div>
+<?php endif; ?>
+
 <?php if (empty($cartItems)): ?>
     <p class="empty-cart">Giỏ hàng của bạn đang trống.</p>
 <?php else: ?>
@@ -23,7 +43,6 @@ include __DIR__ . '/../layouts/headerlogin.php';
                         <button class="quantity-btn increase" onclick="updateQuantity(<?= $item->product_id ?>, +1)">+</button>
                         <span class="quantity"><?= $item->quantity ?></span>
                         <button class="quantity-btn decrease" onclick="updateQuantity(<?= $item->product_id ?>, -1)">-</button>
-                        
                     </div>
                     <p class="cart-item-total">Tổng: <?= number_format($item->price * $item->quantity, 0, ',', '.') ?>đ</p>
                     <a href="<?=$base_url?>index.php?controller=cart&action=remove&id=<?= $item->product_id ?>"
@@ -42,16 +61,56 @@ include __DIR__ . '/../layouts/headerlogin.php';
                 echo number_format($total, 0, ',', '.') . 'đ';
             ?>
         </h3>
-        <a href="<?=$baseURL?>order/checkout" class="checkout-btn">Thanh toán</a>
+
+        <!-- Form nhập thông tin giao hàng -->
+        <form action="<?=$baseURL?>Public/index.php?controller=order&action=checkout" method="POST">
+        <h4 class="delivery-form-title">Thông tin giao hàng</h4>
+            <div class="form-group">
+                <label for="phone">Số điện thoại:</label>
+                <input type="text" class="form-control" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Địa chỉ giao hàng:</label>
+                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="checkout-btn">Thanh toán</button>
+        </form>
     </div>
 <?php endif; ?>
+
+<!-- Hiển thị danh sách đơn hàng -->
+<div class="orders-section">
+    <h2 class="orders-title">Danh sách đơn hàng của bạn</h2>
+    <?php if (empty($orders)): ?>
+        <p class="empty-orders">Bạn chưa có đơn hàng nào.</p>
+    <?php else: ?>
+        <div class="orders-list">
+            <?php foreach ($orders as $order): ?>
+                <div class="order-item">
+                    <div class="order-details">
+                        <p><strong>Mã đơn hàng:</strong> <?= htmlspecialchars($order->id) ?></p>
+                        <p><strong>Tổng tiền:</strong> <?= number_format($order->total_amount, 0, ',', '.') ?>đ</p>
+                        <p><strong>Ngày đặt:</strong> <?= htmlspecialchars($order->order_date) ?></p>
+                        <p><strong>Trạng thái:</strong> 
+                            <span class="order-status <?= $order->status === 'Đã giao' ? 'status-delivered' : 'status-pending' ?>">
+                                <?= htmlspecialchars($order->status) ?>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+</div>
 
 <?php include __DIR__ . '/../layouts/footer.php'; ?>
 
 <script>
-// Hàm cập nhật số lượng (tăng/giảm)
 function updateQuantity(productId, change) {
-    // Tìm đúng phần tử sản phẩm tương ứng
     const cartItem = document.querySelector(`.cart-item[data-id="${productId}"]`);
     const quantityElement = cartItem.querySelector('.quantity');
     let currentQuantity = parseInt(quantityElement.textContent);
@@ -85,5 +144,4 @@ function updateQuantity(productId, change) {
         alert('Lỗi khi cập nhật số lượng!');
     });
 }
-
 </script>

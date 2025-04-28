@@ -35,7 +35,7 @@ class Cart {
             $this->db->bind(':product_id', $product_id);
             $result = $this->db->execute();
             if (!$result) {
-                error_log("SQL Error in addToCart (UPDATE): " . print_r($this->db->errorInfo(), true));
+                error_log("SQL Error in addToCart (UPDATE): " . print_r($this->db->getConnection()->errorInfo(), true));
             }
             return $result;
         } else {
@@ -46,7 +46,7 @@ class Cart {
             $this->db->bind(':quantity', $quantity);
             $result = $this->db->execute();
             if (!$result) {
-                error_log("SQL Error in addToCart (INSERT): " . print_r($this->db->errorInfo(), true));
+                error_log("SQL Error in addToCart (INSERT): " . print_r($this->db->getConnection()->errorInfo(), true));
             }
             return $result;
         }
@@ -105,7 +105,7 @@ class Cart {
         // Kiểm tra số lượng tồn kho
         if ($quantity > $product->stock) {
             error_log("Quantity exceeds stock: requested=$quantity, stock=$product->stock");
-            return false; // Trả về false nếu số lượng vượt quá tồn kho
+            return false;
         }
     
         // Cập nhật số lượng trong giỏ hàng
@@ -117,7 +117,7 @@ class Cart {
         $result = $this->db->execute();
     
         if (!$result) {
-            error_log("SQL Error in updateQuantity: " . print_r($this->db->errorInfo(), true));
+            error_log("SQL Error in updateQuantity: " . print_r($this->db->getConnection()->errorInfo(), true));
         }
     
         return $result;
@@ -132,5 +132,22 @@ class Cart {
         $this->db->query($query);
         $this->db->bind(':product_id', $product_id);
         return $this->db->single();
+    }
+
+    public function clearCart($user_id) {
+        if ($this->db === null) {
+            throw new Exception("Database connection is not initialized in Cart model.");
+        }
+
+        $query = "DELETE FROM " . $this->table_name . " WHERE user_id = :user_id";
+        $this->db->query($query);
+        $this->db->bind(':user_id', $user_id);
+        $result = $this->db->execute();
+        
+        if (!$result) {
+            error_log("SQL Error in clearCart: " . print_r($this->db->getConnection()->errorInfo(), true));
+        }
+        
+        return $result;
     }
 }

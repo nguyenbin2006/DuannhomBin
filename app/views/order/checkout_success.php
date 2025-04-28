@@ -1,10 +1,13 @@
-<?php include './app/views/layouts/headerlogin.php'; ?>
-
-<div class="container mt-5 mb-5 text-center">
-    <h2 class="text-success mb-4">🎉 Đặt hàng thành công!</h2>
-    <p>Mã đơn hàng của bạn là: <strong>#<?= $orderId ?></strong></p>
-    <a href="<?= $baseURL ?>home/index" class="btn btn-primary mt-3">🏠 Quay về trang chủ</a>
-
-</div>
-
-<?php include './app/views/layouts/footer.php'; ?>
+<?php 
+include __DIR__ . '/../../../App/Views/layouts/headerlogin.php'; 
+?>
+<h2>🎉 Đặt hàng thành công!</h2>
+<?php if (isset($orderId) && !empty($orderId)): ?>
+    <p>Mã đơn hàng của bạn là: <?= htmlspecialchars($orderId) ?></p>
+<?php else: ?>
+    <p>Lỗi: Không tìm thấy mã đơn hàng.</p>
+<?php endif; ?>
+<a href="/DuannhomBin/Public/index.php"><span>🏠</span> Quay về trang chủ</a>
+<?php 
+include __DIR__ . '/../../../App/Views/layouts/footer.php'; 
+?>

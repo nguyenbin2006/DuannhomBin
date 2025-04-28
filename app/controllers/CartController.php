@@ -19,7 +19,23 @@ class CartController extends Controller {
         }
     
         $cartItems = $this->cartModel->getCart($_SESSION['user_id']);
-    
+
+    // Tính tổng giá trị giỏ hàng
+    $total = 0;
+    $productModel = $this->model('Product');
+    foreach ($cartItems as $item) {
+        $product = $productModel->getProductById($item->product_id);
+        if ($product) {
+            $item->price = $product['Price'];
+            $item->name = $product['Name']; // Thêm tên sản phẩm để hiển thị
+            $item->image = $product['Image']; // Đảm bảo lấy hình ảnh
+            $total += $product['Price'] * $item->quantity;
+        }
+    }
+    // Lấy danh sách đơn hàng của người dùng
+    $orderModel = $this->model('OrderModel');
+    $orders = $orderModel->getOrdersByUserId($_SESSION['user_id']);
+
         $config = [
             'base_url' => 'http://localhost/DuannhomBin/Public/',
             'base' => 'http://localhost/DuannhomBin/',
@@ -29,7 +45,10 @@ class CartController extends Controller {
     
         $this->view('cart/index', [
             'cartItems' => $cartItems,
-            'config' => $config
+            'total' => $total,
+            'orders' => $orders,
+            'config' => $config,
+            'error' => isset($_GET['error']) ? $_GET['error'] : null
         ]);
     }
     

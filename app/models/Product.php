@@ -18,7 +18,15 @@ class Product {
 
     public function getAll() {
         $this->db->query("SELECT * FROM " . $this->table_name);
-        return $this->db->resultSet();
+        $result = $this->db->resultSet();
+        if (!$result) {
+            // Debug nếu không có dữ liệu
+            echo "<pre>Lỗi: Không lấy được danh sách sản phẩm. Lỗi DB: ";
+            var_dump($this->db->getConnection()->errorInfo());
+            echo "</pre>";
+            return [];
+        }
+        return $result;
     }
 
     public function create() {
@@ -61,5 +69,19 @@ class Product {
         $this->db->query("SELECT * FROM " . $this->table_name . " WHERE id = :id");
         $this->db->bind(':id', $id);
         return $this->db->single();
+    }
+
+    public function getProductById($productId) {
+        $this->db->query("SELECT * FROM " . $this->table_name . " WHERE id = :product_id");
+        $this->db->bind(':product_id', $productId);
+        $product = $this->db->single();
+        if (!$product) {
+            return false;
+        }
+        return [
+            'Price' => $product->price,
+            'Name' => $product->name,
+            'Image' => $product->image
+        ];
     }
 }
