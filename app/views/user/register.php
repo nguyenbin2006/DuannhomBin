@@ -10,16 +10,16 @@
     <?php endif; ?>
     <form action="/DuannhomBin/Public/index.php?controller=user&action=register" method="POST">
         <label for="username">User Name</label>
-        <input type="text" name="username" placeholder="User Name" id="username" required>
+        <input type="text" name="username" placeholder="User Name" required>
 
         <label for="email">Email</label>
-        <input type="email" name="email" placeholder="Email" id="email" required>
+        <input type="email" name="email" placeholder="Email" required>
 
         <label for="password">Password</label>
-        <input type="password" name="password" placeholder="Password" id="password" required>
+        <input type="password" name="password" placeholder="Password" required>
 
         <label for="confirm_password">Confirm Password</label>
-        <input type="password" name="confirm_password" placeholder="Confirm Password" id="confirm_password" required>
+        <input type="password" name="confirm_password" placeholder="Confirm Password" required>
 
         <button type="submit">Register</button>
         <p class="social-text">Register with a social media account</p>

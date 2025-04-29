@@ -43,8 +43,12 @@ class Database {
         $this->stmt->bindValue($param, $value, $type);
     }
 
-    public function execute() {
-        return $this->stmt->execute();
+    public function execute($params = []) {
+        try {
+            return $this->stmt->execute($params);
+        } catch (PDOException $e) {
+            throw new Exception("SQL Error: " . $e->getMessage());
+        }
     }
 
     public function resultSet() {

@@ -5,11 +5,11 @@
         <p style="color:red;"><?php echo $error; ?></p>
     <?php endif; ?>
     <form action="/DuannhomBin/Public/index.php?controller=user&action=login" method="POST">
-        <label for="username">User Name</label>
-        <input type="text" name="username" placeholder="User Name" id="username" required>
+        <label for="username">User Name or Email</label>
+        <input type="text" name="username" placeholder="User Name" required>
 
         <label for="password">Password</label>
-        <input type="password" name="password" placeholder="Password" id="password" required>
+        <input type="password" name="password" placeholder="Password" required>
 
         <button href="/DuannhomBin/Public/index.php?controller=home&action=index" type="submit">Log In</button>
         <p class="social-text">Login with a social media account</p>
