@@ -12,7 +12,7 @@ include __DIR__ . '/../layouts/' . (isset($_SESSION['user_id']) ? 'headerlogin.p
             <p class="card-text">Giá: <?= number_format($product->price ?? 0, 0, ',', '.') ?>đ</p>
             <p class="card-text">Danh mục: <?= htmlspecialchars($product->category ?? 'Chưa có danh mục') ?></p>
             <p class="card-text">Tồn kho: <?= htmlspecialchars($product->stock ?? 0) ?></p>
-            <p class="card-text">Mô tả: <?= htmlspecialchars($product->description ?? 'Chưa có mô tả') ?></p>
+            <p class="card-text">Thông số kỹ thuật: <?= htmlspecialchars($product->description ?? 'Chưa có thông số') ?></p>
             <p class="card-text">Ngày tạo: <?= htmlspecialchars($product->created_at ?? 'Chưa có thông tin') ?></p>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <form action="/DuannhomBin/Public/index.php?controller=cart&action=add" method="POST" style="display: inline;">

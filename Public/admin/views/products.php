@@ -14,7 +14,7 @@
         <input type="number" name="stock" required>
     </div>
     <div class="form-group">
-        <label>Mô tả</label>
+        <label>Thông số kỹ thuật</label>
         <textarea name="description" rows="4"></textarea>
     </div>
     <div class="form-group">
@@ -91,9 +91,16 @@
             <label>Thay ảnh mới (bỏ trống nếu không thay đổi)</label>
             <input type="file" name="image" accept="image/*">
         </div>
+
+        <div class="form-group">
+        <label>Thông số kỹ thuật</label>
+        <textarea name="description" rows="4"></textarea>
+        </div>
+
         <div class="form-group">
             <button type="submit">Cập nhật</button>
         </div>
+        
     </form>
 <?php } ?>
 

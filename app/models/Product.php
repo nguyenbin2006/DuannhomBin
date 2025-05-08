@@ -20,9 +20,10 @@ class Product {
         $this->db->query("SELECT * FROM " . $this->table_name);
         $result = $this->db->resultSet();
         if (!$result) {
-            // Ghi log lỗi thay vì echo
-            $errorInfo = $this->db->getConnection()->errorInfo();
-            error_log("Lỗi: Không lấy được danh sách sản phẩm. Lỗi DB: " . print_r($errorInfo, true));
+            // Debug nếu không có dữ liệu
+            echo "<pre>Lỗi: Không lấy được danh sách sản phẩm. Lỗi DB: ";
+            var_dump($this->db->getConnection()->errorInfo());
+            echo "</pre>";
             return [];
         }
         return $result;

@@ -1,6 +1,4 @@
-<?php 
-include __DIR__ . '/../layouts/header.php'; 
-?>
+<?php include __DIR__ . '/../layouts/header.php'; ?>
 <div class="content">
     <ul>
         <li><a href="/DuannhomBin/Public/index.php?controller=product&action=index">Sản phẩm</a></li>
