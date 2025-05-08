@@ -1,5 +1,4 @@
 <?php
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -20,21 +19,22 @@ class CartController extends Controller {
     
         $cartItems = $this->cartModel->getCart($_SESSION['user_id']);
 
-    // Tính tổng giá trị giỏ hàng
-    $total = 0;
-    $productModel = $this->model('Product');
-    foreach ($cartItems as $item) {
-        $product = $productModel->getProductById($item->product_id);
-        if ($product) {
-            $item->price = $product['Price'];
-            $item->name = $product['Name']; // Thêm tên sản phẩm để hiển thị
-            $item->image = $product['Image']; // Đảm bảo lấy hình ảnh
-            $total += $product['Price'] * $item->quantity;
+        // Tính tổng giá trị giỏ hàng
+        $total = 0;
+        $productModel = $this->model('Product');
+        foreach ($cartItems as $item) {
+            $product = $productModel->getProductById($item->product_id);
+            if ($product) {
+                $item->price = $product['Price'];
+                $item->name = $product['Name'];
+                $item->image = $product['Image'];
+                $total += $product['Price'] * $item->quantity;
+            }
         }
-    }
-    // Lấy danh sách đơn hàng của người dùng
-    $orderModel = $this->model('OrderModel');
-    $orders = $orderModel->getOrdersByUserId($_SESSION['user_id']);
+
+        // Lấy danh sách đơn hàng của người dùng
+        $orderModel = $this->model('OrderModel');
+        $orders = $orderModel->getOrdersByUserId($_SESSION['user_id']);
 
         $config = [
             'base_url' => 'http://localhost/DuannhomBin/Public/',
@@ -48,7 +48,8 @@ class CartController extends Controller {
             'total' => $total,
             'orders' => $orders,
             'config' => $config,
-            'error' => isset($_GET['error']) ? $_GET['error'] : null
+            'error' => isset($_GET['error']) ? $_GET['error'] : null,
+            'success' => isset($_GET['success']) ? $_GET['success'] : null
         ]);
     }
     
@@ -57,35 +58,51 @@ class CartController extends Controller {
             header('Location: /DuannhomBin/Public/index.php?controller=user&action=login');
             exit();
         }
-
+    
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $product_id = $_POST['product_id'];
             $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
-
+    
+            error_log("Adding to cart - User ID: " . $_SESSION['user_id'] . ", Product ID: $product_id, Quantity: $quantity");
             if ($this->cartModel->addToCart($_SESSION['user_id'], $product_id, $quantity)) {
-                header('Location: /DuannhomBin/Public/index.php?controller=cart&action=index');
+                header('Location: /DuannhomBin/Public/index.php?controller=cart&action=index&success=added');
                 exit();
             } else {
-                echo "Lỗi khi thêm sản phẩm vào giỏ hàng.";
+                header('Location: /DuannhomBin/Public/index.php?controller=cart&action=index&error=add_failed');
+                exit();
             }
         }
     }
 
-    public function remove($product_id) {
+    public function remove() {
         if (!isset($_SESSION['user_id'])) {
+            error_log("No session user_id - Redirecting to login");
             header('Location: /DuannhomBin/Public/index.php?controller=user&action=login');
             exit();
         }
-
-        if ($this->cartModel->removeFromCart($_SESSION['user_id'], $product_id)) {
-            header('Location: /DuannhomBin/Public/index.php?controller=cart&action=index');
+    
+        error_log("Remove called - Session User ID: " . $_SESSION['user_id'] . ", Request: " . print_r($_GET, true));
+        $product_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+    
+        if ($product_id <= 0) {
+            error_log("Invalid product_id: $product_id");
+            header('Location: /DuannhomBin/Public/index.php?controller=cart&action=index&error=invalid_product');
+            exit();
+        }
+    
+        error_log("Attempting to remove Product ID: $product_id");
+        $result = $this->cartModel->removeFromCart($_SESSION['user_id'], $product_id);
+        if ($result) {
+            error_log("Remove successful - Redirecting with success");
+            header('Location: /DuannhomBin/Public/index.php?controller=cart&action=index&success=removed');
             exit();
         } else {
-            echo "Lỗi khi xóa sản phẩm khỏi giỏ hàng.";
+            error_log("Remove failed - Redirecting with error");
+            header('Location: /DuannhomBin/Public/index.php?controller=cart&action=index&error=remove_failed');
+            exit();
         }
     }
 
-    // Trong CartController.php, action update
     public function update() {
         if (!isset($_SESSION['user_id'])) {
             echo json_encode(['success' => false, 'message' => 'Vui lòng đăng nhập để cập nhật giỏ hàng']);
@@ -137,5 +154,4 @@ class CartController extends Controller {
     
         exit();
     }
-    
 }

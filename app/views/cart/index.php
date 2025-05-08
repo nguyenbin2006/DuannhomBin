@@ -9,9 +9,13 @@ include __DIR__ . '/../layouts/headerlogin.php';
     <li class="text-cart">Giỏ hàng của bạn</li>
 </div>
 
-<?php if (isset($_GET['success']) && $_GET['success'] === 'order_placed'): ?>
+<?php if (isset($success)): ?>
     <div class="alert alert-success">
-        Đặt hàng thành công! Kiểm tra trạng thái đơn hàng của bạn bên dưới.
+        <?php
+        if ($success == 'order_placed') echo 'Đặt hàng thành công! Kiểm tra trạng thái đơn hàng của bạn bên dưới.';
+        elseif ($success == 'added') echo 'Thêm sản phẩm vào giỏ hàng thành công!';
+        elseif ($success == 'removed') echo 'Xóa sản phẩm khỏi giỏ hàng thành công!';
+        ?>
     </div>
 <?php endif; ?>
 
@@ -25,6 +29,8 @@ include __DIR__ . '/../layouts/headerlogin.php';
         elseif ($error == 'invalid_email') echo 'Email không hợp lệ!';
         elseif ($error == 'invalid_phone') echo 'Số điện thoại không hợp lệ!';
         elseif ($error == 'invalid_address') echo 'Địa chỉ không hợp lệ!';
+        elseif ($error == 'add_failed') echo 'Thêm sản phẩm vào giỏ hàng thất bại!';
+        elseif ($error == 'remove_failed') echo 'Xóa sản phẩm khỏi giỏ hàng thất bại!';
         ?>
     </div>
 <?php endif; ?>
@@ -46,7 +52,7 @@ include __DIR__ . '/../layouts/headerlogin.php';
                     </div>
                     <p class="cart-item-total">Tổng: <?= number_format($item->price * $item->quantity, 0, ',', '.') ?>đ</p>
                     <a href="<?=$base_url?>index.php?controller=cart&action=remove&id=<?= $item->product_id ?>"
-                    onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</a>
+                       onclick="return confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</a>
                 </div>
             </div>
         <?php endforeach; ?>

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/DuannhomBin/Public/assets/css/style.css?v=<?php echo time();?>">
     <link rel="stylesheet" href="/DuannhomBin/Public/assets/css/web.css?v=<?php echo time();?>">
     <link rel="stylesheet" href="/DuannhomBin/Public/assets/css/cart.css?v=<?php echo time();?>">
+    <link rel="stylesheet" href="/DuannhomBin/Public/assets/css/view.css?v=<?php echo time();?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/DuannhomBin/Public/assets/font/themify-icons/themify-icons.css">
@@ -39,9 +40,6 @@
         <ul class="d-flex flex-wrap justify-content-center gap-3">
             <li><a href="/DuannhomBin/Public/index.php?controller=home&action=indexlogin">TRANG CHỦ</a></li>
             <li><a href="/DuannhomBin/Public/index.php?controller=product&action=indexlogin">SẢN PHẨM</a></li>
-            <li><a href="#">SALE OFF</a></li>
-            <li><a href="#">GIỚI THIỆU</a></li>
-            <li><a href="#">HƯỚNG DẪN</a></li>
             <li><a href="/DuannhomBin/Public/index.php?controller=cart&action=index"> <i class="ti-shopping-cart"></i>GIỎ HÀNG</a></li>
         </ul>
     </div>

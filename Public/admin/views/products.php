@@ -14,6 +14,18 @@
         <input type="number" name="stock" required>
     </div>
     <div class="form-group">
+        <label>Mô tả</label>
+        <textarea name="description" rows="4"></textarea>
+    </div>
+    <div class="form-group">
+        <label>Danh mục</label>
+        <input type="text" name="category">
+    </div>
+    <div class="form-group">
+        <label>Ngày tạo</label>
+        <input type="date" name="created_at">
+    </div>
+    <div class="form-group">
         <label>Ảnh sản phẩm</label>
         <input type="file" name="image" accept="image/*" required>
     </div>
@@ -84,3 +96,7 @@
         </div>
     </form>
 <?php } ?>
+
+<?php if ($error_message): ?>
+    <p class="error"><?= $error_message ?></p>
+<?php endif; ?>

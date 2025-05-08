@@ -17,7 +17,6 @@ class Cart {
             throw new Exception("Database connection is not initialized in Cart model.");
         }
     
-        // Debug dữ liệu đầu vào
         error_log("Add to cart: user_id=$user_id, product_id=$product_id, quantity=$quantity");
     
         $query = "SELECT * FROM " . $this->table_name . " WHERE user_id = :user_id AND product_id = :product_id";
@@ -68,16 +67,36 @@ class Cart {
 
     public function removeFromCart($user_id, $product_id) {
         if ($this->db === null) {
+            error_log("Database connection not initialized");
             throw new Exception("Database connection is not initialized in Cart model.");
         }
-
+    
+        // Kiểm tra bản ghi trước khi xóa
+        $checkQuery = "SELECT COUNT(*) FROM " . $this->table_name . " WHERE user_id = :user_id AND product_id = :product_id";
+        $this->db->query($checkQuery);
+        $this->db->bind(':user_id', $user_id);
+        $this->db->bind(':product_id', $product_id);
+        $count = $this->db->singleColumn();
+        error_log("Records found before delete: $count");
+    
         $query = "DELETE FROM " . $this->table_name . " WHERE user_id = :user_id AND product_id = :product_id";
         $this->db->query($query);
         $this->db->bind(':user_id', $user_id);
         $this->db->bind(':product_id', $product_id);
-        return $this->db->execute();
+        
+        $result = $this->db->execute();
+        
+        if (!$result) {
+            error_log("SQL Execution failed: " . print_r($this->db->getConnection()->errorInfo(), true));
+        }
+        
+        $stmt = $this->db->getConnection()->query("SELECT ROW_COUNT()");
+        $rowCount = $stmt->fetchColumn();
+    
+        error_log("Remove Cart Item - User ID: $user_id, Product ID: $product_id, Rows Affected: $rowCount");
+        
+        return $rowCount > 0;
     }
-
     public function getCartItem($user_id, $product_id) {
         if ($this->db === null) {
             throw new Exception("Database connection is not initialized in Cart model.");
@@ -95,20 +114,17 @@ class Cart {
             throw new Exception("Database connection is not initialized in Cart model.");
         }
     
-        // Kiểm tra sản phẩm tồn tại và lấy thông tin tồn kho
         $product = $this->getProductById($product_id);
         if (!$product) {
             error_log("Product not found: product_id=$product_id");
             return false;
         }
     
-        // Kiểm tra số lượng tồn kho
         if ($quantity > $product->stock) {
             error_log("Quantity exceeds stock: requested=$quantity, stock=$product->stock");
             return false;
         }
     
-        // Cập nhật số lượng trong giỏ hàng
         $query = "UPDATE " . $this->table_name . " SET quantity = :quantity WHERE user_id = :user_id AND product_id = :product_id";
         $this->db->query($query);
         $this->db->bind(':quantity', $quantity);

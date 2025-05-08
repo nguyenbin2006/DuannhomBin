@@ -29,10 +29,13 @@ if ($section == 'products') {
         $name = $_POST['name'];
         $price = $_POST['price'];
         $stock = $_POST['stock'];
-        $image = isset($_FILES['image']) ? $_FILES['image'] : null; // Lấy dữ liệu từ $_FILES
+        $description = $_POST['description'] ?? '';
+        $category = $_POST['category'] ?? '';
+        $created_at = $_POST['created_at'] ?? date('Y-m-d H:i:s');
+        $image = isset($_FILES['image']) ? $_FILES['image'] : null;
 
         try {
-            $productModel->addProduct($name, $price, $stock, $image);
+            $productModel->addProduct($name, $price, $stock, $description, $category, $created_at, $image);
             header("Location: index.php?section=products");
             exit();
         } catch (Exception $e) {
@@ -56,7 +59,7 @@ if ($section == 'products') {
         $name = $_POST['name'];
         $price = $_POST['price'];
         $stock = $_POST['stock'];
-        $image = isset($_FILES['image']) ? $_FILES['image'] : null; // Lấy dữ liệu từ $_FILES
+        $image = isset($_FILES['image']) ? $_FILES['image'] : null;
 
         try {
             $productModel->updateProduct($id, $name, $price, $stock, $image);
@@ -82,7 +85,6 @@ if ($section == 'users') {
     $users = $userModel->getAllUsers();
 }
 
-// Quản lý đơn hàng
 // Quản lý đơn hàng
 if ($section == 'orders') {
     if ($action == 'delete_order') {

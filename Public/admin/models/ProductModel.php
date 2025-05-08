@@ -10,16 +10,25 @@ class ProductModel {
         return $this->db->query("SELECT * FROM products")->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function addProduct($name, $price, $stock, $image) {
+    public function addProduct($name, $price, $stock, $description, $category, $created_at, $image) {
         // Xử lý file ảnh
         $image_name = $this->uploadImage($image);
         if (!$image_name) {
             throw new Exception("Lỗi khi tải ảnh lên. Vui lòng kiểm tra file ảnh và thử lại.");
         }
 
-        $sql = "INSERT INTO products (name, price, stock, image) VALUES (:name, :price, :stock, :image)";
+        $sql = "INSERT INTO products (name, price, stock, description, category, created_at, image) 
+                VALUES (:name, :price, :stock, :description, :category, :created_at, :image)";
         $stmt = $this->db->prepare($sql);
-        return $stmt->execute(['name' => $name, 'price' => $price, 'stock' => $stock, 'image' => $image_name]);
+        return $stmt->execute([
+            'name' => $name,
+            'price' => $price,
+            'stock' => $stock,
+            'description' => $description,
+            'category' => $category,
+            'created_at' => $created_at ?: date('Y-m-d H:i:s'),
+            'image' => $image_name
+        ]);
     }
 
     public function getProductById($id) {
@@ -91,22 +100,20 @@ class ProductModel {
     }
 
     private function uploadImage($image) {
-        // Kiểm tra nếu $image là null hoặc không có file được tải lên
         if (!$image || !isset($image['error']) || $image['error'] === UPLOAD_ERR_NO_FILE) {
-            return false; // Không có file, trả về false
+            return false;
         }
 
         if ($image['error'] !== UPLOAD_ERR_OK) {
-            return false; // Lỗi tải file
+            return false;
         }
 
         $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
         if (!in_array($image['type'], $allowed_types)) {
-            return false; // Định dạng file không hợp lệ
+            return false;
         }
 
         $upload_dir = __DIR__ . '/../../assets/img/';
-        // Đảm bảo thư mục tồn tại
         if (!is_dir($upload_dir)) {
             mkdir($upload_dir, 0777, true);
         }
@@ -120,4 +127,3 @@ class ProductModel {
         return false;
     }
 }
-?>

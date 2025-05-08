@@ -121,6 +121,10 @@
     display: block;
 }
 
+img {
+    width: 100%;
+}
+
 /* Các phần còn lại của web.css giữ nguyên */
 .content ul li a {
     display: block;
@@ -194,7 +198,7 @@
 
 .card-text {
     font-size: 20px;
-    color: #f00;
+    color: #666;
     font-weight: 500;
 }
 

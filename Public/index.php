@@ -16,7 +16,6 @@ if (!$dbConnectionFilePath) {
 require_once $dbConnectionFilePath;
 require_once $controllerFilePath;
 
-// Khởi động session (cần cho đăng nhập)
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
@@ -41,11 +40,13 @@ try {
         $controller = new $controllerName();
 
         if (method_exists($controller, $action)) {
-            // Lấy tất cả tham số trên URL trừ 'controller' và 'action'
-            $params = array_values(array_diff_key($_GET, array_flip(['controller', 'action'])));
-
-            // Gọi hàm controller với tham số
-            call_user_func_array([$controller, $action], $params);
+            if ($action === 'show' && $id) {
+                // Gọi show() với id
+                $controller->$action($id);
+            } else {
+                $params = array_values(array_diff_key($_GET, array_flip(['controller', 'action'])));
+                call_user_func_array([$controller, $action], $params);
+            }
         } else {
             echo "Method '$action' not found in $controllerName!";
         }
@@ -56,7 +57,6 @@ try {
     echo "Error: " . $e->getMessage();
 }
 
-
 if ($action == 'checkout' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 1;
     $address = $_POST['address'] ?? '';
@@ -65,4 +65,3 @@ if ($action == 'checkout' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: index.php?success=1");
     exit();
 }
-?>
