@@ -11,6 +11,53 @@
     padding: 0;
 }
 
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    max-height: 600px;
+    overflow: hidden;
+    height: 100vh;
+}
+
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 84%;
+    background-size: 100%;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    background-repeat: no-repeat;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide:hover {
+    cursor: pointer;
+}
+
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 40px;
+    color: white;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
 .content ul li,
 .menu-chinh ul li {
     position: relative;
@@ -27,6 +74,16 @@
 
 .menu-chinh ul li a:hover {
     background-color: #444;
+}
+
+.ti-angle-down{
+    font-size: medium;
+    margin-left: 5px;
+}
+
+.ti-shopping-cart{
+    font-size: medium;
+    margin-left: 5px;
 }
 
 .header-top {
@@ -89,6 +146,68 @@
     color: #fff;
 }
 
+
+.ti-search{
+    font-size: large;
+    font-weight: bold
+}
+
+.search-bar {
+    position: relative;
+    width: 300px;
+    margin-left: 90px;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+    display: none;
+    z-index: 10;
+}
+
+.search-results.active {
+    display: block;
+}
+
+.product-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+
+.product-item:hover {
+    background: #f0f0f0;
+}
+
+.product-item img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.product-info {
+    flex-grow: 1;
+}
+
+.product-name {
+    font-size: 14px;
+    color: #333;
+}
+
+.product-price {
+    font-size: 14px;
+    color: #e74c3c;
+    font-weight: bold;
+}
 .search-bar :hover {
     cursor: pointer;
     border: 0;
@@ -107,6 +226,7 @@
     padding: 8px;
     background-color: #fff;
     border: none;
+    color: #000;
 }
 
 .search-bar button:hover {
@@ -273,11 +393,21 @@ img {
 
 /* Màn hình nhỏ hơn 768px (tablet) */
 @media (max-width: 768px) {
-    .header-top {
+    .header-top{
         flex-direction: column;
         align-items: center;
         padding: 15px; /* Tăng padding để thoáng hơn */
         gap: 15px; /* Khoảng cách giữa các phần tử */
+    }
+
+    .slideshow-container {
+        height: 50vh; /* Giảm chiều cao trên màn hình nhỏ */
+        max-height: 400px;
+    }
+
+    .slide {
+        background-size: contain; /* Hiển thị toàn bộ hình ảnh, không cắt */
+        background-position: center;
     }
 
     .header-top .logo img {
@@ -424,6 +554,11 @@ img {
         padding: 5px 12px;
         font-size: 14px;
         border-radius: 6px;
+    }
+
+    .slideshow-container {
+        height: 40vh; /* Thích nghi với điện thoại */
+        max-height: 300px;
     }
 
     .menu-chinh ul li a {

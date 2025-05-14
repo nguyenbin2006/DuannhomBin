@@ -4,9 +4,17 @@ $baseURL = isset($config['baseURL']) ? $config['baseURL'] : 'http://localhost/Du
 $assets = isset($config['assets']) ? $config['assets'] : 'http://localhost/DuannhomBin/Public/assets/';
 include __DIR__ . '/../layouts/header.php';
 ?>
- <div>
-        <img src="/DuannhomBin/Public/assets/img/img1.png" >
+
+<div class="slideshow-container">
+        <!-- Thay thế các URL hình ảnh dưới đây bằng URL thật của bạn -->
+        <div class="slide" style="background-image: url('/DuannhomBin/Public/assets/img/img3.png');"></div>
+        <div class="slide" style="background-image: url('/DuannhomBin/Public/assets/img/img1.png');"></div>
+        <div class="slide" style="background-image: url('/DuannhomBin/Public/assets/img/img4.png');"></div>
+
+        <div class="nav-arrow prev" onclick="changeSlide(-1)">&#10094;</div>
+        <div class="nav-arrow next" onclick="changeSlide(1)">&#10095;</div>
     </div>
+
 <div class="content">
     <ul>
         <li><a href="<?= $baseURL ?>Public/index.php?controller=product&action=index">Sản phẩm</a></li>
@@ -38,3 +46,37 @@ include __DIR__ . '/../layouts/header.php';
 </div>
 
 <?php include __DIR__ . '/../layouts/footer.php'; ?>
+
+<script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) {
+                    slide.classList.add('active');
+                }
+            });
+        }
+
+        function changeSlide(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            showSlide(currentSlide);
+            resetTimer();
+        }
+
+        let slideInterval = setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        function resetTimer() {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                changeSlide(1);
+            }, 5000);
+        }
+
+        showSlide(currentSlide);
+    </script>

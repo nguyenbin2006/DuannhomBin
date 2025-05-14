@@ -25,12 +25,11 @@
             <span><i class="ti-location-pin"></i> HỆ THỐNG CỬA HÀNG</span>
             
         </div>
-        <div class="search-bar">
-            <form action="/DuannhomBin/Public/index.php?controller=product&action=search" method="GET">
-                <input type="text" name="query" placeholder="Tìm sản phẩm">
-                <button type="submit"><i class="ti-search"></i></button>
-            </form>
-        </div>
+        <div class="search-bar d-flex align-items-center">
+    <input type="text" id="searchInput" placeholder="Tìm sản phẩm" oninput="filterProducts(this.value)" style="flex-grow: 1;">
+    <button onclick="filterProducts(document.getElementById('searchInput').value)" class="btn btn-secondary ms-2"><i class="ti-search"></i></button>
+    <div id="searchResults" class="search-results"></div>
+</div>
         <div class="btn-login-group d-flex gap-2">
             <a href="/DuannhomBin/Public/index.php?controller=user&action=register" class="btn-dangky">Đăng ký</a>
             <a href="/DuannhomBin/Public/index.php?controller=user&action=login" class="btn-dangnhap">Đăng nhập</a>
@@ -40,7 +39,56 @@
         <ul class="d-flex flex-wrap justify-content-center gap-3">
             <li><a href="/DuannhomBin/Public/index.php?controller=home&action=index">TRANG CHỦ</a></li>
             <li><a href="/DuannhomBin/Public/index.php?controller=product&action=index">SẢN PHẨM</a></li>
-            <li><a href="/DuannhomBin/Public/index.php?controller=cart&action=index"> <i class="ti-shopping-cart"></i>GIỎ HÀNG</a></li>
+            <li><a href="/DuannhomBin/Public/index.php?controller=product&action=index">HƯỚNG DẪN<i class="ti-angle-down"></i></a></li>
+            <li><a href="/DuannhomBin/Public/index.php?controller=cart&action=index"> GIỎ HÀNG<i class="ti-shopping-cart"></i></a></li>
         </ul>
     </div> 
 </header>
+
+<script>
+    function filterProducts(keyword) {
+        // Chỉ gửi yêu cầu nếu từ khóa có ít nhất 3 ký tự
+        if (keyword.length < 3) {
+            document.getElementById('searchResults').classList.remove('active');
+            return;
+        }
+
+        fetch(`/DuannhomBin/Public/index.php?controller=product&action=search&keyword=${encodeURIComponent(keyword)}`)
+            .then(response => response.json())
+            .then(data => {
+                const searchResults = document.getElementById('searchResults');
+                searchResults.innerHTML = '';
+
+                if (data.length === 0) {
+                    searchResults.classList.remove('active');
+                } else {
+                    searchResults.classList.add('active');
+                    data.forEach(product => {
+                        const productItem = document.createElement('div');
+                        productItem.classList.add('product-item');
+                        productItem.innerHTML = `
+                            <img src="/DuannhomBin/Public/assets/img/${product.image}" alt="${product.name}">
+                            <div class="product-info">
+                                <div class="product-name">${product.name}</div>
+                                <div class="product-price">${product.price}</div>
+                            </div>
+                        `;
+                        // Thêm sự kiện onclick để chuyển hướng đến trang chi tiết sản phẩm
+                        productItem.onclick = function() {
+                            window.location.href = `/DuannhomBin/Public/index.php?controller=product&action=show&id=${product.id}`;
+                        };
+                        searchResults.appendChild(productItem);
+                    });
+                }
+            })
+            .catch(error => console.error('Lỗi:', error));
+    }
+
+    // Ẩn kết quả khi click ra ngoài
+    document.addEventListener('click', function(event) {
+        const searchBar = document.querySelector('.search-bar');
+        if (!searchBar.contains(event.target)) {
+            document.getElementById('searchResults').classList.remove('active');
+        }
+    });
+</script>

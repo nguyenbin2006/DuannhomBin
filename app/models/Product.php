@@ -84,4 +84,12 @@ class Product {
             'Image' => $product->image
         ];
     }
+
+    public function searchProducts($keyword) {
+        $query = "SELECT id, name, price, image FROM " . $this->table_name . " WHERE name LIKE :keyword";
+        $this->db->query($query);
+        $keyword = "%" . $keyword . "%";
+        $this->db->bind(':keyword', $keyword);
+        return $this->db->resultSet();
+    }
 }

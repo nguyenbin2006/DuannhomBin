@@ -32,4 +32,13 @@ class ProductController extends Controller {
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public function search() {
+        $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+        $products = $this->productModel->searchProducts($keyword);
+
+        header('Content-Type: application/json');
+        echo json_encode($products);
+        exit(); // Kết thúc xử lý sau khi trả về JSON
+    }
 }
