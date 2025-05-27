@@ -174,3 +174,11 @@
     background-color: red;
 }
 
+@media (max-width: 768px) {
+    .text-cart{
+        width: 86%;
+        height: 52px;
+        font-size: x-large;
+    }
+}
+

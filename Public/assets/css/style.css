@@ -43,6 +43,13 @@
         max-width: 100%; /* Chiều rộng đầy đủ */
         padding: 10px;
     }
+    .container-qr {
+        flex-direction: column;
+        text-align: center;
+      }
+      .note {
+        text-align: center;
+      }
 
     .container.mt-5 h3 {
         font-size: 18px;
@@ -81,6 +88,35 @@
         font-size: 12px;
     }
 }
+
+.container-qr {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  .qr {
+    margin-right: 30px;
+  }
+  .qr img {
+    width: 300px;
+    height: auto;
+  }
+  .note {
+    max-width: 600px;
+  }
+  .note h2 {
+    margin-bottom: 10px;
+    color: #cc0000;
+    font-weight: bold;
+  }
+  .note p {
+    font-size: 16px;
+  }
+
 
 /* Định dạng tổng thể cho form đăng nhập và đăng ký */
 .container.mt-5 {

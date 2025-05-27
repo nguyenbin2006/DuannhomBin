@@ -9,6 +9,8 @@ include __DIR__ . '/../layouts/headerlogin.php';
     <li class="text-cart">Giỏ hàng của bạn</li>
 </div>
 
+
+
 <?php if (isset($success)): ?>
     <div class="alert alert-success">
         <?php
@@ -86,9 +88,25 @@ include __DIR__ . '/../layouts/headerlogin.php';
             <button type="submit" class="checkout-btn">Thanh toán</button>
         </form>
     </div>
-<?php endif; ?>
+    <?php endif; ?>
 
-<!-- Hiển thị danh sách đơn hàng -->
+<!-- Hiển thị danh sách đơn hàng --> </div>
+    <div class="container-qr">
+        <div class="qr">
+            <img class="maqr"src="/DuannhomBin/Public/assets/img/maqr.jpg">
+        </div>
+        <div class="note">
+        <h2>THÔNG TIN TÀI KHOẢN CỦA SHOP</h2>
+      <p>Tên tài khoản thụ hưởng: NGUYEN TAN BIN</p>
+      <h2>LƯU Ý</h2>
+      <p>Vui lòng nhập đúng nội dung khi thanh toán là <strong>số thứ tự đơn hàng</strong> của bạn.<br>
+      Đơn hàng của bạn sẽ được giao khi đã có sự xác nhận đã thanh toán .</p>
+      <h2>Thời gian đơn hàng được giao</h2>
+        <p> Chậm nhất là 2 tuần sau khi đơn hàng có trạng thái đã giao</p>
+        <p>Nếu có sai xót trong việc thanh toán hoặc đơn hàng chưa được giao tới. Vui lòng liên hệ sđt:<strong> 
+            0123456789</strong> hoặc Fb: <strong>ShopTKB</strong>. Để được hỗ trợ kịp thời.</p>
+        </div>
+    </div>
 <div class="orders-section">
     <h2 class="orders-title">Danh sách đơn hàng của bạn</h2>
     <?php if (empty($orders)): ?>

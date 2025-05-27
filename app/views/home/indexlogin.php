@@ -16,33 +16,111 @@ include __DIR__ . '/../layouts/headerlogin.php';
     </div>
 
 <div class="content">
-    <ul>
-        <li><a href="<?= $baseURL ?>Public/index.php?controller=product&action=index">Sản phẩm</a></li>
-    </ul>
-</div>
-<div class="product-container">
-    <?php if (isset($products) && !empty($products)): ?>
-        <?php foreach ($products as $product): ?>
-            <div class="card">
-                <img src="<?= $assets ?>img/<?= htmlspecialchars($product->image ?? '') ?>" class="card-img-top" alt="Sản phẩm">
-                <div class="card-body">
-                    <h5 class="card-title"><?= htmlspecialchars($product->name ?? '') ?></h5>
-                    <p class="card-text">Giá: <?= number_format($product->price ?? 0, 0, ',', '.') ?>đ</p>
-                    <a href="<?= $baseURL ?>Public/index.php?controller=product&action=show&id=<?= $product->id ?? 0 ?>" class="btn-view">View</a>
-                    <?php if (isset($_SESSION['user_id'])): ?>
-                        <form action="<?= $baseURL ?>Public/index.php?controller=cart&action=add" method="POST" style="display: inline;">
-                            <input type="hidden" name="product_id" value="<?= $product->id ?? 0 ?>">
-                            <button type="submit" class="btn-primary">Thêm vào giỏ hàng</button>
-                        </form>
-                    <?php else: ?>
-                        <a href="<?= $baseURL ?>Public/index.php?controller=user&action=login" class="btn-primary">Đăng nhập để thêm</a>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p>Không có sản phẩm nào để hiển thị.</p>
-    <?php endif; ?>
+<!-- Sản phẩm nổi bật -->
+<section class="featured-products py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5 text-primary fw-bold">🔥 SẢN PHẨM NỔI BẬT 🔥</h2>
+    <div class="row justify-content-center">
+
+      <!-- Sản phẩm 1 -->
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
+        <div class="card text-center shadow-sm w-100">
+          <img src="/DuannhomBin/Public/assets/img/nanoflare1000z.png" class="card-img-top" >
+          <div class="card-body">
+            <h5 class="card-title2">Vợt Yonex Nanoflare 1000z</h5>
+            <p class="card-text text-danger fw-bold">5.050.000đ</p>
+            <a href="/DuannhomBin/Public/index.php?controller=product&action=show&id=<?= $product->id ?? 0 ?>" 
+            class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
+        <div class="card text-center shadow-sm w-100">
+          <img src="/DuannhomBin/Public/assets/img/1746672194_vot-cau-long-victor-thruster-ryuga-ii-pro-cps-ma-taiwan.jpg" class="card-img-top" >
+          <div class="card-body">
+            <h5 class="card-title2">Vợt Victor Thruster Ryuga</h5>
+            <p class="card-text text-danger fw-bold">4.150.000đ</p>
+            <a href="/DuannhomBin/Public/index.php?controller=product&action=show&id=<?= $product->id ?? 0 ?>" 
+            class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
+        <div class="card text-center shadow-sm w-100">
+          <img src="/DuannhomBin/Public/assets/img/1746672345_vot-cau-long-victor-thruster-ryuga-metallic-cps-ma-taiwan.jpg" class="card-img-top" >
+          <div class="card-body">
+            <h5 class="card-title2">Vợt Cầu Lông Victor Thruster Ryuga Metallic CPS</h5>
+            <p class="card-text text-danger fw-bold">4.050.000đ</p>
+            <a href="/DuannhomBin/Public/index.php?controller=product&action=show&id=<?= $product->id ?? 0 ?>" 
+            class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
+        <div class="card text-center shadow-sm w-100">
+          <img src="/DuannhomBin/Public/assets/img/vot-cau-long-lining-woods-n90-noi-dia-trung_1741051062.jpg" class="card-img-top" >
+          <div class="card-body">
+            <h5 class="card-title2">Vợt cầu lông Lining Woods N90</h5>
+            <p class="card-text text-danger fw-bold">5.049.000đ</p>
+            <a href="/DuannhomBin/Public/index.php?controller=product&action=show&id=<?= $product->id ?? 0 ?>" 
+            class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
+          </div>
+        </div>
+      </div>
+
+     
+    </div>
+  </div>
+</section>
+
+
+<!-- Khuyến mãi đang diễn ra -->
+<section class="promotion-section py-5 bg-warning-subtle">
+  <div class="container">
+    <h2 class="text-center text-danger mb-5 fw-bold">🎁 KHUYẾN MÃI ĐANG DIỄN RA 🎁</h2>
+    <div class="row justify-content-center">
+
+      <!-- Khuyến mãi 1 -->
+      <div class="col-12 col-sm-6 col-md-4 mb-4 d-flex">
+        <div class="card border-danger shadow-sm w-100">
+          <div class="card-body text-center">
+            <h5 class="card-title text-danger fw-semibold">🔥 Giảm 20% toàn bộ vợt Yonex</h5>
+            <p class="card-text small">Từ 1/6 đến 10/6 - Áp dụng khi mua online</p>
+            <a href="#" class="btn btn-outline-danger btn-sm">Xem ngay</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Khuyến mãi 2 -->
+      <div class="col-12 col-sm-6 col-md-4 mb-4 d-flex">
+        <div class="card border-success shadow-sm w-100">
+          <div class="card-body text-center">
+            <h5 class="card-title text-success fw-semibold">🎉 Mua 2 vợt, tặng 1 cuốn cán</h5>
+            <p class="card-text small">Tự động áp dụng tại giỏ hàng – Không cần mã</p>
+            <a href="#" class="btn btn-outline-success btn-sm">Mua ngay</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Khuyến mãi 3 -->
+      <div class="col-12 col-sm-6 col-md-4 mb-4 d-flex">
+        <div class="card border-primary shadow-sm w-100">
+          <div class="card-body text-center">
+            <h5 class="card-title text-primary fw-semibold">🚚 Miễn phí vận chuyển từ 500.000đ</h5>
+            <p class="card-text small">Áp dụng toàn quốc cho mọi sản phẩm</p>
+            <a href="#" class="btn btn-outline-primary btn-sm">Xem chi tiết</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
 </div>
 
 <?php include __DIR__ . '/../layouts/footer.php'; ?>

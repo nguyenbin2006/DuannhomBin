@@ -389,6 +389,35 @@ img {
     justify-content: center;
 }
 
+.featured-products h2 {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .card-title2 {
+    font-size: 1rem;
+    min-height: 48px;
+  }
+  
+  .card-img-top {
+    height: 400px;
+    object-fit: cover;
+  }
+
+  
+.promotion-section .card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  
+  .promotion-section .card {
+    transition: transform 0.3s ease;
+  }
+  .promotion-section .card:hover {
+    transform: scale(1.03);
+  }
+  
+
 /* Cập nhật media queries để làm giao diện đẹp hơn trên màn hình nhỏ */
 
 /* Màn hình nhỏ hơn 768px (tablet) */
@@ -400,6 +429,17 @@ img {
         gap: 15px; /* Khoảng cách giữa các phần tử */
     }
 
+
+    .card-img-top {
+        height: 400px;
+        object-fit: cover;
+      }
+    
+      .promotion-section h2,
+      .featured-products h2 {
+        font-size: 1.3rem;
+      }
+    
     .slideshow-container {
         height: 50vh; /* Giảm chiều cao trên màn hình nhỏ */
         max-height: 400px;
@@ -548,7 +588,7 @@ img {
     .search-bar button {
         padding: 6px 10px;
     }
-
+    
     .btn-dangky,
     .btn-dangnhap {
         padding: 5px 12px;
@@ -589,4 +629,21 @@ img {
         font-size: 14px;
         height: 25px;
     }
+    .featured-products h2 {
+        font-size: 1.4rem;
+      }
+
+      .promotion-section h2 {
+        font-size: 1.3rem;
+      }
+      .promotion-section .card-title {
+        font-size: 1rem;
+      }
+      .promotion-section .card-text {
+        font-size: 0.875rem;
+      }
+      .promotion-section .btn {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+      }
 }
