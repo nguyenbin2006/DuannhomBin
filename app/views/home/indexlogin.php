@@ -120,6 +120,82 @@ include __DIR__ . '/../layouts/headerlogin.php';
   </div>
 </section>
 
+<section class="testimonials py-5">
+  <div class="container">
+    <h2 class="text-center mb-5">💬 Khách hàng nói gì?</h2>
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <blockquote class="blockquote">
+          <p>"Shop giao hàng rất nhanh, vợt đánh cực tốt!"</p>
+          <footer class="blockquote-footer">Nguyễn Văn A</footer>
+        </blockquote>
+      </div>
+      <div class="col-md-4">
+        <blockquote class="blockquote">
+          <p>"Tư vấn nhiệt tình, giá cả hợp lý, sẽ quay lại mua tiếp."</p>
+          <footer class="blockquote-footer">Trần Thị B</footer>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="blog-section py-5 bg-light">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold text-dark">📰 Tin tức & Mẹo chơi cầu lông</h2>
+    <div class="row">
+      
+      <!-- Bài viết 1 -->
+      <div class="col-md-6 col-lg-4 mb-4">
+        <article class="blog-article h-100 shadow-sm bg-white rounded overflow-hidden">
+          <img src="/DuannhomBin/Public/assets/img/chonvotchonguoimoi.jpg" alt="blog" class="img-fluid w-100 blog-img">
+          <div class="p-4">
+            <h5 class="fw-bold text-primary mb-2">📌 Cách chọn vợt cầu lông cho người mới</h5>
+            <p class="text-muted small">Viết bởi <strong>Admin</strong> • 25/05/2025</p>
+            <p class="text-dark small">
+              Nếu bạn là người mới bắt đầu chơi cầu lông và phân vân không biết nên chọn loại vợt nào phù hợp, bài viết này sẽ giúp bạn hiểu rõ...
+            </p>
+            <a href="/DuannhomBin/app/views/home/blog-detail.php?id=1" class="btn btn-outline-primary btn-sm mt-2">Đọc tiếp</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-md-6 col-lg-4 mb-4">
+        <article class="blog-article h-100 shadow-sm bg-white rounded overflow-hidden">
+          <img src="/DuannhomBin/Public/assets/img/olympicparis.jpg" alt="blog" class="img-fluid w-100 blog-img">
+          <div class="p-4">
+            <h5 class="fw-bold text-primary mb-2">📌 Sự kiện giải đấu</h5>
+            <p class="text-muted small">Viết bởi <strong>Admin</strong> • 25/05/2025</p>
+            <p class="text-dark small">
+              Cập nhật thông tin giải đấu cầu lông liên tục
+            </p>
+            <a href="/DuannhomBin/app/views/home/blog-detail.php?id=3" class="btn btn-outline-primary btn-sm mt-2">Đọc tiếp</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="col-md-6 col-lg-4 mb-4">
+        <article class="blog-article h-100 shadow-sm bg-white rounded overflow-hidden">
+          <img src="/DuannhomBin/Public/assets/img/san-cau-long-phu-tho-1.jpg" alt="blog" class="img-fluid w-100 blog-img">
+          <div class="p-4">
+            <h5 class="fw-bold text-primary mb-2">📌 Các sân cầu lông mới tại TP.Hồ Chí Minh</h5>
+            <p class="text-muted small">Viết bởi <strong>Admin</strong> • 25/05/2025</p>
+            <p class="text-dark small">
+              Sân cầu lông mới phù hợp cho nhu cầu tập luyện cho người mới và cũng như người có trình độ cao
+            </p>
+            <a href="/DuannhomBin/app/views/home/blog-detail.php?id=4" class="btn btn-outline-primary btn-sm mt-2">Đọc tiếp</a>
+          </div>
+        </article>
+      </div>
+
+
+      <!-- Thêm các bài viết khác ở đây -->
+
+    </div>
+  </div>
+</section>
+</div>
 
 </div>
 

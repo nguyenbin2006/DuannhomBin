@@ -3,7 +3,7 @@ include __DIR__ . '/../layouts/headerlogin.php';
 ?>
 <div class="content">
     <ul>
-        <li><a href="/DuannhomBin/Public/index.php?controller=product&action=index">Sản phẩm</a></li>
+        <li><a href="/DuannhomBin/Public/index.php?controller=product&action=index">🔥 Sản phẩm 🔥</a></li>
     </ul>
 </div>
 <div class="product-container">
