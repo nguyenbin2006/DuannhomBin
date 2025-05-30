@@ -39,7 +39,6 @@
         <ul class="d-flex flex-wrap justify-content-center gap-3">
             <li><a href="/DuannhomBin/Public/index.php?controller=home&action=index">TRANG CHỦ</a></li>
             <li><a href="/DuannhomBin/Public/index.php?controller=product&action=index">SẢN PHẨM</a></li>
-            <li><a href="/DuannhomBin/Public/index.php?controller=product&action=index">HƯỚNG DẪN<i class="ti-angle-down"></i></a></li>
             <li><a href="/DuannhomBin/Public/index.php?controller=cart&action=index"> GIỎ HÀNG<i class="ti-shopping-cart"></i></a></li>
         </ul>
     </div> 
