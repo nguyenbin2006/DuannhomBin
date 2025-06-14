@@ -22,7 +22,7 @@
         </div>
         <div class="header-info d-flex flex-wrap justify-content-center gap-3">
             <span><i class="ti-headphone"></i> HOTLINE: 0123456789 | 0123456789</span>
-            <span><i class="ti-location-pin"></i> HỆ THỐNG CỬA HÀNG</span>
+          
                 
         </div>
         <div class="search-bar d-flex align-items-center">
