@@ -22,8 +22,6 @@
         </div>
         <div class="header-info d-flex flex-wrap justify-content-center gap-3">
             <span><i class="ti-headphone"></i> HOTLINE: 0123456789 | 0123456789</span>
-          
-                
         </div>
         <div class="search-bar d-flex align-items-center">
     <input type="text" id="searchInput" placeholder="Tìm sản phẩm" oninput="filterProducts(this.value)" style="flex-grow: 1;">
